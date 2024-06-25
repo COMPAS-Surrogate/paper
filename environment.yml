@@ -4,4 +4,5 @@ dependencies:
   - conda-forge::python=3.9
   - pip:
       - matplotlib==3.9.0
+      - pandas
       - ogc4_interface@git+https://github.com/COMPAS-Surrogate/ogc4_interface.git
