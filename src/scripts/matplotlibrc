@@ -44,5 +44,4 @@ font.cursive: Liberation Sans
 font.sans-serif: Liberation Sans
 
 # Use LaTeX for math formatting
-text.usetex : True
-text.latex.preamble : \usepackage{amsmath} \usepackage{amssymb} \usepackage{sfmath}
+text.usetex : False
