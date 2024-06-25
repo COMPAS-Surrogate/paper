@@ -14,7 +14,7 @@ def plot_kl_data():
     fig, axs = plt.subplots(1, 1)
     axs.plot(x, y, label='Median')
     axs.fill_between(x.tolist(), yl, yu, alpha=0.3, label=r'$95\%$ C.I.')
-    axs.set_ylabel('KL Distance')
+    axs.set_ylabel('JS divergence')
     axs.set_xlabel('Number of GP training Points')
     leg = axs.legend()
     leg.legend_handles[0].set_linewidth(2.0)
