@@ -2,132 +2,338 @@
 \documentclass[twocolumn]{aastex631}
 \usepackage{showyourwork}
 
+
+\usepackage{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsmath,units}
+\usepackage{amsmath,bm}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{acronym}
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage[caption=false]{subfig}
+\usepackage{import}
+\usepackage{mathtools}
+\usepackage{showyourwork}
+
+\setlength{\marginparwidth}{1.5cm}
+
+
+
+% table column types
+\usepackage{array}
+\newcolumntype{E}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{F}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{G}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+% abbreviations/acronyms
+\acrodef{ANN}{artificial neural network}
+\acrodef{DCO}{double compact object}
+\acrodef{MCMC}{Markov Chain Monte Carlo}
+\acrodef{MSSFR}{metallicity-specific star formation rate}
+\acrodef{LVK}{LIGO--VIRGO--KAGRA}
+
+
+\input{custom_commands}
+
+
+
+
 % Begin!
 \begin{document}
 
-% Title
-\title{An open source scientific article}
+\title{\resp{COMPAS Star-formation LnL GP surrogate}}
 
-% Author list
-\author{@COMPAS-Surrogate}
 
-% Abstract with filler text
+% Authors
+\author{Avi Vajpeyi}
+\affiliation{UoA}
+\affiliation{NZ Gravity}
+\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
+
+\author{Jeff Riley}
+\affiliation{School of Physics and Astronomy, Monash University, Clayton, Victoria 3800, Australia}
+\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
+\author{Ilya Mandel}
+\affiliation{School of Physics and Astronomy, Monash University, Clayton, Victoria 3800, Australia}
+\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
+\author{Chayan Chatterjee}
+\affiliation{}
+
+\correspondingauthor{Avi Vajpeyi}
+\email{avi.vajpeyi@auckland.ac.nz}
+
+%%%%
+
+
 \begin{abstract}
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-    Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-    Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-    Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-    Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-    Phasellus eu tellus sit amet tortor gravida placerat.
-    Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-    Praesent eget sem vel leo ultrices bibendum.
-    Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-    Curabitur auctor semper nulla donec varius orci eget risus.
-    Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-    Duis eget orci sit amet orci dignissim rutrum.
+    We're using GPs to build surrogate likelihoods for COMPAS star formation parameters, given the LVK observed dataset.
 \end{abstract}
 
-% Main body with filler text
+\keywords{surrogate model -- inference -- binaries -- stars: evolution -- gravitational waves -- machine learning -- Gaussian Processes}
+
+
+
 \section{Introduction}
 \label{sec:intro}
+Over the past decade, the improvements in detector sensitivity have led to an exponential increase in the rate of GW detections.
+With next-generation detectors on the horizon (such as CE, ET, LISA), the number of GW detections will increase even more.
+The most recent catalogue of GW contains
+XX events, the majority of them being Binary Black Holes
+(BBHs), with XX public alerts for GW that have yet to be confirmed as astrophysiocal events.
+As more GW events are observed, more features
+in the distribution of GW events await to be discovered.
+One of the most common ways to understand the observed GW population is through phenomenological modelling.
+However, as the size of the catalogues increases, so does the catalogue complexity, making it challenging to develop interpretable, parameterisable phenomenological models, flexible enough to explain the features in the catalogue.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.
-Curabitur dictum gravida mauris, consectetuer id, vulputate a, magna.
-Donec vehicula augue eu neque, morbi tristique senectus et netus et.
-Mauris ut leo, cras viverra metus rhoncus sem, nulla et lectus vestibulum.
-Phasellus eu tellus sit amet tortor gravida placerat.
-Integer sapien est, iaculis in, pretium quis, viverra ac, nunc.
-Praesent eget sem vel leo ultrices bibendum.
-Aenean faucibus, morbi dolor nulla, malesuada eu, pulvinar at, mollis ac.
-Curabitur auctor semper nulla donec varius orci eget risus.
-Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam.
-Duis eget orci sit amet orci dignissim rutrum.
+Alternatively, we can consider using forward models to simulate catalogues of GW events and compare the simulations to observed catalogues.
+The forward modelling approach would provide astronomers with constraints on easy-to-interpret physical parameters that describe the initial conditions of the population of merging binaries, such as distributions describing the initial stellar mass, metallicity, and binary separation.
+These parameters also govern simulated physical processes like wind mass loss, supernova characteristics, and binary interactions such as mass transfer and common envelope efficiency.
+However, the generation of synthetic catalogues from the various rapid population sysnthesis software packages can be expensive, making brute force methods that explore all possible parameter values expensive (for example, see  Broekgaarden et al. (2022)).
+Another alternative, as proposed by Riley et al. (2023) involves building surrogate tools to bridge the computational complexities of simulating a state space large enough
+to allow us to infer astrophysical constraints from the observed catalogs.
 
-Nam dui ligula, fringilla a, euismod sodales, sollici- tudin vel, wisi.
-Morbi auctor lorem non justo, nam lacus libero, pretium at, lobortis vitae.
-Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna.
-Morbi ac orci et nisl hendrerit mollis, suspendisse ut massa, cras nec ante.
-Pellentesque a nulla cum sociis natoque penatibus et magnis dis parturient.
-Aliquam tincidunt urna, nulla ullamcorper vestibulum turpis.
-Pellentesque cursus luctus mauris \citep{Luger2021}.
+Riley et al. (2023) generated a small number of ``training" states using a
+targeted selection of initial conditions and evolutionary
+parameters.
+The training states were then used to teach an interpolant how to
+map initial conditions and evolutionary parameters to
+the final state, thus avoiding the computational time
+of calculating the intermediate steps.
 
+In their work, they explored four parameters governing the cosmic metallicity-specific star formation rate (MSSFR) in the model of Neijssel et al. (2019).
 
+We build upon Riley at al. (2023)'s work, and
 
-
-\section{Introduction} \label{sec:intro}
-This work builds of Riley et al 2022
-
-Astrophysical processes that govern stellar, binary system evolution, and the production of binary black holes (BBH) that produce gravitational waves (GW) detectable by current instrumentation (e.g. aLIGO, VIRGO, KAGRA, the \lvk) are very uncertain. 
-Over the next few years, we will accumulate a population of several hundred BBH mergers. 
-We can use the population of mergers to constrain some parameters describing astrophysical processes, such as the star formation rate in the early universe. 
-In this work, we use \compas, a rapid stellar population synthesis tool, to model the universe with different star formation rates (SFR) and try to place constraints on the SFR that can reproduce the \lvk\ detections. 
-
-
-The remainder of the paper is organised as follows.
-Section~\ref{sec:method} outlines...
-Results are summarised in Section~\ref{sec:results}.
-The data products, and software to reproduce the results available online as supplementary materials (\projectUrl).
-Finally, we discuss caveats and provide concluding remarks in Section~\ref{sec:conclusion}.
-
-\section{Method} \label{sec:method}
+The remainder of this paper is organised as follows.
+Section 2 presents a description of the tool we construct
+for this proof-of-concept study, and the method used
+to train the tool.
+We present and discuss our results in Section 3.
+We provide some concluding remarks in  Section 4
 
 
-The \lvk\ has detected $\sim90$ GW signals from a population of merging BBHs. 
-Each BBH has some parameters $\vec{\theta}$ that describe the system, such as the BBH's chirp-mass $\mathcal{M}$, spin magnitude $\chi$, spin angle $\theta$, and redshift $z$.
-On the other hand, \compas\ can generate populations of merging BBHs using different initial star formation parameters $\vec{\lambda}$. 
 
-Therefore, we can use \compas\ to determine the posterior on $\vec{\lambda}$ given \lvk's $N_{\rm obs}$ observed BBHs and their parameters $\vec{D} = \{ p_i(\vec{\theta}|h), ...\}$ (where $h$ is the strain data):
+%--------------------------------------------------------
+\section{Method}
+\subsection{Gaussian process and Bayesian Optimisation}
+Talk about bayesian optimisation
+
+
+\subsection{MSSFR parameters}\label{sec:method_parameters}
+
+The parameters we chose to vary for this study are four free parameters for the calculation of the \ac{MSSFR} in the phenomenological model of \citet{Neijssel_2019}. In this model, the \ac{MSSFR} is split into two parts, the star formation rate (SFR) and the metallicity distribution:
+
+
 \begin{equation}
-    p(\vec{\lambda}| \vec{D}) \sim \pi(\vec{\lambda})\ \mathcal{L}(\vec{D}| \vec{\lambda})\ .
+  \frac{\diff^3 \MSFR}{\diff \ts \diff \Vc \diff Z}(z) =
+  \frac{\diff^2 \MSFR}{\diff \ts \diff \Vc }(z)
+  \times
+  \frac{\diff P }{\diff Z}(z),
+\end{equation}
+
+\noindent
+where the SFR is given by:
+
+\begin{equation}
+  \frac{\diff^2 \MSFR}{\diff \ts \diff \Vc} =
+  a\frac{(1 + z)^b}{1 + (\frac{(1 + z)}{c})^d}\,
+  \mathrm{M}_\odot\ \mathrm{yr}^{-1}\ \mathrm{Mpc}^{-3},
+\end{equation}
+
+\bigskip\noindent
+and we use a log-normal distribution in metallicity at each redshift (cf.~the skewed log-normal model proposed by \citet{vanSon_2022}):
+
+\begin{equation}
+  \frac{\diff P }{\diff Z}(z) =
+  \frac{1}{Z\sigma\sqrt{2\pi}}\, \exp\bigg[{-\frac{(\ln Z-\ln \langle Z \rangle +\sigma^2/2)^2}{2\sigma^2}}\bigg],
+\end{equation}
+
+\bigskip\noindent
+with a redshift-independent standard deviation $\sigma$ in $\ln Z$ space around a redshift-dependent mean $\mu$ of $\ln Z$ given by:
+
+\begin{equation}
+  \langle Z \rangle =
+  \exp[\mu + \sigma^2/2],
+\end{equation}
+
+\bigskip\noindent
+with mean metallicity parametrised as in \citet{Langer_2006}:
+
+\begin{equation}
+  \langle Z(z) \rangle =
+  Z_{0}10^{\alpha{z}}
+\end{equation}
+
+\bigskip\noindent
+We vary SFR parameters $a$ and $d$, and the metallicity distribution parameters $\alpha$ and $\sigma$, in this study, while fixing $b=2.77$, $c=2.9$, and $Z_0=0.035$.  \resp{\citet{Neijssel_2019} demonstrated that a range of star-formation history models can be mimicked by varying only this subset of \ac{MSSFR} parameters.  We therefore choose to vary the same parameters for consistency with their analysis.  Moreover, reducing the number of parameters allows us to limit computational complexity for this proof-of-principle study.}
+
+
+\subsection{Cosmic integration}
+Talk about how we run cosmic int,
+show plots of Mcz grid for different SF
+
+\subsection{Bayesian Model}
+We define the likelihood $\mathcal{L}$ that we will see the data $\mathcal{D}$ for a particular set of parameters $\lambda$ as
+
+\begin{equation}
+  \log{\mathcal{L}\left( \mathcal{D} |\lambda\right)} = \log{\Lp\left(N_{\mathrm{obs}}|\lambda\right)} +
+  \sum_{i=1}^{N_\mathrm{obs}} \log{\Le(D_i|\lambda)},
+  \label{eq:methods_likelihood}
+\end{equation}
+
+\bigskip\noindent
+where $N_{\mathrm{obs}}$ is the number of observations in the data $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$.
+
+The first term of Equation~\ref{eq:methods_likelihood} is a Poisson likelihood on there being $N_\mathrm{obs}$ detections,
+
+\begin{equation}
+  %\notag
+  \log{ \Lp\left(N_{\mathrm{obs}}|\lambda\right)} = - \mu(\lambda) + N_{\mathrm{obs}}\log\mu(\lambda) ,
+  \label{eq:methods_likelihood_term1}
+\end{equation}
+
+\bigskip\noindent
+where $\mu(\lambda)$ is the expected number of observations and we omit terms that depend on the data only and therefore disappear on normalisation, such as $\log(N_{\mathrm{obs}}!)$ and permutation coefficients.
+
+The second term of Equation~\ref{eq:methods_likelihood} is comprised of a product of the probabilities of individual event detections,
+
+\begin{equation}
+  %\notag
+  \Le(D_i|\lambda) = \pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda),
+  \label{eq:methods_likelihood_term2}
+\end{equation}
+
+\bigskip\noindent
+where $\pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda)$ is the entry in the probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ in the $z$ and $\mathcal{M}$ bin of the observed $i^{th}$ event.
+The probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ is constructed by dividing the entries in the matrix of expected detections for a given $\lambda$, generated by multiplying the surrogate model detection rate matrix by the run duration, by the sum of the entries in the matrix, $\mu$.
+
+
+\subsection{Using gravitational wave observations}\label{sec:method_LVK}
+
+The catalogue of LIGO, Virgo, and KAGRA (LVK) gravitational wave observations (\citet{GWTC-2_1_zenodo}, \citet{GWTC-3_zenodo}) provides us with a number of merger detections from a population of \acp{DCO}.  For each LVK event we know, among other things, the chirp mass of the merging binary and the merger redshift, up to a measurement uncertainty. We only include confident detections with a minimum astrophysical probability $p_{astro} \ge 0.95$; although less confident events could be included \citep[e.g.][]{Farr_2015}, they will typically contribute little information due to greater measurement uncertainties, so we omit them for this proof-of-concept study.
+
+Once we validate our method, we can use our surrogate model and the LVK data to infer real physical constraints on the parameters under study, with the important caveat that we have fixed the astrophysical parameters, and any errors in those could bias the inferred \ac{MSSFR} model values.
+
+
+\subsubsection{LVK likelihood calculation}\label{sec:method_LVK_likelihood_calculation}
+
+ In practice, for LVK events, we may not know the values $z_i, \Mc_{i}$ and hence the probability $\Le(z=z_i,\Mc=\Mc_{i}|\lambda)$ for the observed $i^{th}$ event in Equation~\ref{eq:methods_likelihood_term2} perfectly, but may only have $K$ samples from a posterior $p(z_i,\Mc_{i}|D_i)$.  For LVK data, we substitute the following for Equation~\ref{eq:methods_likelihood_term2}:
+
+\begin{equation}
+  \Le(D_i|\lambda) = \frac{1}{K} \sum_{k=1}^K \frac{\pg(z=z_i^k, \Mc=\Mc_{i}^k|\lambda)}{\pi(z_i^k,\Mc_i^k)},
+  \label{eq:methods_likelihood_term2_LIGO}
+\end{equation}
+
+\bigskip\noindent
+where the subscript $k$ refers to the $k^{th}$ posterior sample among $K$ available samples for event $i$ and $\pi(z,\Mc)$ is the prior used by LVK data analysts in the original inference on the observed events \citep[see, e.g.][]{Mandel_2019}.
+
+
+In practice, if the number of bins where an event has posterior support is much smaller than the number of samples $K$, it may be more efficient to pre-compute the weight that each observed event $i$ contributes to each of the bins $b$, $w_{i,b}$, which is independent of $\lambda$:
+
+\begin{equation}
+    w_{i,b} = \frac{1}{K} \sum^K_{k=1} \frac{I(\{z^k_i,\Mc^k_i\} \in b)}{\pi(z_i^k,\Mc_i^k)} \ ,
+\end{equation}
+where $I(\{z^k_i,\Mc^k_i\} \in b$ is an indicator function that evaluates to 1 if sample $\{z^k_i,\Mc^k_i\}$ falls into bin $b$ and $0$ otherwise.
+Then the probability $\Le(D_i|\lambda)$ can be evaluated as a sum over bins,
+
+\begin{equation}
+    \Le(D_i|\lambda) = \sum_b \pg(z^b, \Mc^b | \lambda) w_{i,b}
 \end{equation}
 
 
-Here, $\mathcal{L}(\vec{D}| \vec{\lambda})$ can be written as:
-\begin{equation}
-    \ln \mathcal{L}(\vec{D}| \vec{\lambda}) = \ln \mathcal{L}(N_{\rm obs}|\vec{\lambda}) + \sum^{N_{\rm obs}}_{i=1} \ln \mathcal{L}(D_i|\vec{\lambda}) \ .
-\end{equation}
+\subsection{Diagnostics}
+variable LnL and Kl divergence
 
-
-Expected gains 
-
-
-
-
-\section{Toy Model}
-
-In this section, we delve into a toy-model problem of just using the \lvk\ chirp-masses and \compas\ chirp-masses, marginalising over the redshift. 
-
-In this case, we create a surrogate for $\mathcal{L}$.
+%--------------------------------------------------------
+\section{Toy model}
+Include corners of variable LnL + normal LnL
+Include KL divergence (low number points --> high points)
+Include PP plot
 
 
 
 
-
-\section{Results}\label{sec:results}
-Details on the results
-
-\section{Discussion and caveats}\label{sec:conclusion}
-Some concluding discussions
-
-\section{Data and software availability}\label{sec:data}
-Code data can be found at \projectGit
-
-
-
-%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[ht!]
+    \script{plot_kl_distances.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/kl_distances.pdf}
+        \caption{
+            KL-Distances of the posteriors obtained with XX, compared against to those from YY.
+        }
+        \label{fig:kl_distances}
+    \end{centering}
+\end{figure}
 
 
+\begin{figure}[ht!]
+    \script{plot_pp_plot.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/pp_plot.pdf}
+        \caption{
+            PP-plots from simulation study.
+        }
+        \label{fig:pp_plot}
+    \end{centering}
+\end{figure}
 
-\section*{Acknowledgments}{
+
+%--------------------------------------------------------
+\section{LVK analysis}
+\subsection{Data}
+
+\begin{figure}[ht!]
+    \script{plot_ogc4_events.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/ogc4_events.pdf}
+        \caption{
+            The events and uncertainty as predicted by Ogc4
+        }
+        \label{fig:ogc4_events}
+    \end{centering}
+\end{figure}
+
+\begin{figure}[ht!]
+    \script{plot_ogc4_weights.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/ogc4_weights.pdf}
+        \caption{
+            Weights generated using the OGC4 posteriors
+        }
+        \label{fig:ogc4_weights}
+    \end{centering}
+\end{figure}
+
+Describe OGC4 data
+
+\subsection{Results}
+Describe LVK results, compare with Riley et al.
+
+%--------------------------------------------------------
+\section{Discussion}
 
 
+
+%%% DATA AVAILABILITY %%%
+\section*{Data availability}
+The data underlying this article is available in the Zenodo deposit for this work. LINK TO ZENODO.
+
+\section*{Acknowledgements}
 We gratefully acknowledge the Swinburne Supercomputing OzSTAR Facility for computational resources. All analyses (including test and failed analyses) performed for this study used $XX$K core hours on OzSTAR. This would have amounted to a carbon footprint of ${\sim XX{\text{t CO}_2}}$~\citep{greenhouse, energy_to_co2_converter}. Thankfully, as OzSTAR is powered by wind energy from Iberdrola Australia; the electricity for computations produces negligible carbon waste.
-
-
 A.V. is supported by the Australian Research Council (ARC) Centre of Excellence CE170100004.
 
-}
+4-OGC.
+IM is a recipient of the Australian Research Council Future Fellowship FT190100574.
+AV is XX.
+Discussions with Renate, Matt, Kate.
+
+
 
 \vspace{5mm}
 \facilities{LIGO-VIRGO-KAGRA}
@@ -155,6 +361,192 @@ A.V. is supported by the Australian Research Council (ARC) Centre of Excellence 
 
 
 
+
+
 \bibliography{bib}
+
+\appendix
+
+\section{$\pi(\mathcal{M}, D_{C})$ to $\pi(\mathcal{M}, z)$}
+
+See \cite{Hogg:1999:arXiv} for transforms
+
+\begin{equation}
+\Omega_{\rm M}\equiv\frac{8\pi\,G\,\rho_0}{3\,H_0^2}
+\end{equation}
+\begin{equation}
+\Omega_{\Lambda}\equiv\frac{\Lambda\,c^2}{3\,H_0^2}
+\end{equation}
+\begin{equation}
+    D_H = c / H_0
+\end{equation}
+
+
+\begin{equation}
+\label{eq:ez}
+E(z)\equiv\sqrt{\Omega_{\rm M}\,(1+z)^3+\Omega_k\,(1+z)^2+\Omega_{\Lambda}}
+\end{equation}
+
+\begin{equation}
+D_{\rm C} = D_{\rm H}\,\int_0^z\frac{dz'}{E(z')}
+\end{equation}
+
+The comoving distance between two events at the same redshift or
+distance but separated on the sky by some angle $\delta\theta$ is
+$D_{\rm M}\,\delta\theta$ and the transverse comoving distance $D_{\rm
+M}$ (so-denoted for a reason explained below) is simply related to the
+line-of-sight comoving distance $D_{\rm C}$:
+\begin{equation}
+D_{\rm M} = \left\{
+\begin{array}{ll}
+D_{\rm H}\,\frac{1}{\sqrt{\Omega_k}}\,\sinh\left[\sqrt{\Omega_k}\,D_{\rm C}/D_{\rm H}\right] & {\rm for}~\Omega_k>0 \\
+D_{\rm C} & {\rm for}~\Omega_k=0 \\
+D_{\rm H}\,\frac{1}{\sqrt{|\Omega_k|}}\,\sin\left[\sqrt{|\Omega_k|}\,D_{\rm C}/D_{\rm H}\right] & {\rm for}~\Omega_k<0
+\end{array}
+\right.
+\end{equation}
+
+Angular diameter distance is related to the
+transverse comoving distance by
+\begin{equation}
+D_{\rm A} = \frac{D_{\rm M}}{1+z}
+\end{equation}
+
+
+The comoving volume element in solid
+angle $d\Omega$ and redshift interval $dz$ is
+\begin{equation}
+dV_{\rm C}= D_{\rm H}\,\frac{(1+z)^2\,D_{\rm A}^2}{E(z)}\,d\Omega\,dz
+\end{equation}
+
+ The integral of the comoving volume element
+from the present to redshift $z$ gives the total comoving volume,
+all-sky, out to redshift $z$
+
+\begin{equation}
+V_{\rm C} = \left\{
+\begin{array}{ll}
+  \left(\frac{4\pi\,D_{\rm H}^3}{2\,\Omega_k}\right)\,
+  \left[\frac{D_{\rm M}}{D_{\rm H}}\,
+  \sqrt{1+\Omega_k\,\frac{D_{\rm M}^2}{D_{\rm H}^2}}
+  -\frac{1}{\sqrt{|\Omega_k|}}\,
+  {\rm arcsinh}\left(\sqrt{|\Omega_k|}\,\frac{D_{\rm M}}{D_{\rm H}}\right)\right]
+  & {\rm for}~\Omega_k>0 \\
+  \frac{4\pi}{3}\,D_{\rm M}^3
+  & {\rm for}~\Omega_k=0 \\
+  \left(\frac{4\pi\,D_{\rm H}^3}{2\,\Omega_k}\right)\,
+  \left[\frac{D_{\rm M}}{D_{\rm H}}\,
+  \sqrt{1+\Omega_k\,\frac{D_{\rm M}^2}{D_{\rm H}^2}}
+  -\frac{1}{\sqrt{|\Omega_k|}}\,
+  {\rm arcsin}\left(\sqrt{|\Omega_k|}\,\frac{D_{\rm M}}{D_{\rm H}}\right)\right]
+  & {\rm for}~\Omega_k<0
+\end{array}
+\right.
+\end{equation}
+
+
+
+\section{COMPAS configuration fiducial values}\label{sec:appendix_COMPAS_fiducial}
+
+\begin{table*}[ht!]
+\centering
+\caption{Initial values and default settings for the \COMPAS fiducial model.}
+%
+\label{tab:app_COMPAS_fiducial}
+% ?\textwidth}{l @{\extracolsep{\fill}}
+\resizebox{\textwidth}{!}{%
+% \begin{adjustbox}{max width=1\textwidth}
+% \centering
+\begin{tabular}{lll}
+\hline  \hline
+Description and name                                 														& Value/range                       & Note / setting   \\ \hline  \hline
+\multicolumn{3}{c}{Initial conditions}                                                                      \\ \hline
+Initial primary mass \monei                               															& $[5, 150]$\Msun    & \citet{Kroupa_2001} IMF  $\propto  {\monei}^{-\alpha}$  with $\alpha_{\rm{IMF}} = 2.3$ for stars above $5$\Msun	  \\
+%
+Initial mass ratio $\qi = \mtwoi / \monei $           												& $[0, 1]$                          &       We assume a flat mass ratio distribution  $p(\qi) \propto  1$ with \mtwoi $\geq 0.1\Msun$   \\
+%
+Initial semi-major axis \ai                                            											& $[0.01, 1000]$\AU & Distributed flat-in-log $p(\ai) \propto 1 / {\ai}$ \\
+%
+Initial metallicity \Zi                                           											& $[0.0001, 0.03]$                 & Distributed uniform-in-log   \\
+%
+Initial orbital eccentricity \ei                                 							 				& 0                                & All binaries are assumed to be circular at birth  \\
+%
+% initial rotation of stars                            															& 0                                 &                  \\  \hline
+\hline
+%initial mass function (IMF) slope 	$\alpha_{\rm{IMF}}$									&  $ 2.3$		& 	 for stars above $5$\Msun from \citet{2001MNRAS.322..231K} IMF\\  \hline
+\multicolumn{3}{c}{Fiducial parameter settings:}                                                            \\ \hline
+%
+Stellar winds  for hydrogen rich stars                                   																&      \citet{Belczynski_2010a}    &   Based on {\citet{Vink_2000, Vink_2001}}, including  LBV wind mass loss with $f_{\rm{LBV}} = 1.5$   \\
+%
+Stellar winds for hydrogen-poor helium stars &  \citet{Belczynski_2010a} & Based on   {\citet{Hamann_1998}} and  {\citealt{Vink_2005}}  \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% MASS TRANSFER THINGS %%%%%%%%%%%%%%%%%%%%%%%
+%
+Max transfer stability criteria & $\zeta$-prescription & Based on \citet[][]{Vigna-Gomez_2018} and references therein     \\
+%
+Mass transfer accretion rate & thermal timescale & Limited by thermal timescale for stars  \citet[][]{Hurley_2002, Vinciguerra_2020} \\
+ & Eddington-limited  & Accretion rate is Eddington-limit for compact objects  \\
+%
+Non-conservative mass loss & isotropic re-emission &  {\citet[][]{Massevitch_1975, Bhattacharya_1991, Soberman_1997}} \\
+& &  {\citet{Tauris_2006}} \\
+%
+Case BB mass transfer stability                                														& always stable         &       Based on  \citet{Tauris_2015, Tauris_2017, Vigna-Gomez_2018}         \\
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% CE THINGS %%%%%%%%%%%%%%%%%%%%%%%
+%
+CE prescription & $\alpha-\lambda$ & Based on  \citet{Webbink_1984, deKool_1990}  \\
+%
+CE efficiency $\alpha$-parameter                     												& 1.0                               &              \\
+%
+CE $\lambda$-parameter                               													& $\lambda_{\rm{Nanjing}}$                             &        Based on \citet{Xu_2010a, Xu_2010b} and  \citet{Dominik_2012}       \\
+%
+Hertzsprung gap (HG) donor in {CE}                       														& pessimistic                       &  Defined in \citet{Dominik_2012}:  HG donors don't survive a {CE}  phase        \\
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%.    SN THINGS   %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+{SN} natal kick magnitude \vk                          									& $[0, \infty)$\kms & Drawn from Maxwellian distribution with standard deviation $\sigma_{\rm{rms}}^{\rm{1D}}$          \\
+%
+ {SN} natal kick polar angle $\thetak$          											& $[0, \pi]$                        & $p(\thetak) = \sin(\thetak)/2$ \\
+%
+ {SN} natal kick azimuthal angle $\phi_k$                           					  	& $[0, 2\pi]$                        & Uniform $p(\phi) = 1/ (2 \pi)$   \\
+%
+ {SN} mean anomaly of the orbit                    											&     $[0, 2\pi]$                             & Uniformly distributed  \\
+ %
+Core-collapse  {SN} remnant mass prescription          									     &  delayed                     &  From \citet{Fryer_2012}, which  has no lower {BH} mass gap  \\%
+%
+USSN  remnant mass prescription          									     &  delayed                     &  From \citet{Fryer_2012}   \\%
+%
+ECSN  remnant mass presciption                        												&                                 $m_{\rm{f}} = 1.26\Msun$ &      Based on Equation~8 in \citet{Timmes_1996}          \\
+%
+Core-collapse  {SN}  velocity dispersion $\sigma_{\rm{rms}}^{\rm{1D}}$ 			& 265\kms           & 1D rms value based on              \citet{Hobbs_2005}                          \\
+%
+ USSN  and ECSN  velocity dispersion $\sigma_{\rm{rms}}^{\rm{1D}}$ 							 	& 30\kms             &            1D rms value based on e.g.,    \citet{Pfahl_2002, Podsiadlowski_2004}    \\
+%
+PISN / PPISN remnant mass prescription               											& \citet{Marchant_2019}                    &       As implemented in \citet{Stevenson_2019}      \\
+Maximum NS mass                                      & $\rm{max}_{\rm{NS}} = 2.5$\Msun & Following \citet{Fryer_2012}            \\
+Tides and rotation & & We do not include tides and/or rotation in this study\\
+Binary fraction                                      & $f_{\rm{bin}} = 0.7$ &  \\
+Solar metallicity \Zsun                             & $\rm{Z}_{\odot}\xspace = 0.0142$ & based on {\citet{Asplund_2009}} \\
+%
+%
+\hline
+\multicolumn{3}{c}{Simulation settings}                                                                     \\ \hline
+Binary population synthesis code                                      & COMPAS &       \citet{Stevenson_2017, Barrett_2018, Vigna-Gomez_2018, Neijssel_2019} \\
+& & \citet{Broekgaarden_2019, COMPAS_2022}.        \\
+\hline \hline
+\end{tabular}%
+% \end{adjustbox}
+}
+\end{table*}
+
+
+
+
+
+
 
 \end{document}
