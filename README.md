@@ -17,3 +17,11 @@
 </p>
 
 An open source scientific article created using the [showyourwork](https://github.com/showyourwork/showyourwork) workflow.
+
+
+## Notes:
+
+Local build with:
+```bash
+showyourwork build --conda-frontend=mamba
+```

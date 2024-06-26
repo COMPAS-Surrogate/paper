@@ -1,7 +1,6 @@
 import numpy as np
 from pygtc import plotGTC
 from typing import List
-import matplotlib.pyplot as plt
 from data_cache import DataCache
 from scipy.stats import entropy
 import paths
@@ -16,13 +15,12 @@ LATEX = dict(
 )
 
 
-
 def compute_kl_div(res1_posterior, res2_posterior, use_kde=False, bandwidth=0.2, bins=100):
     assert res1_posterior.shape[1] == res2_posterior.shape[1], "Dimensions of posteriors do not match."
     js_divs, ks_stats, kl_divs = [], [], []
     ndim = res1_posterior.shape[1]
     for d in range(ndim):
-        p, q = res1_posterior[:,d], res2_posterior[:,d]
+        p, q = res1_posterior[:, d], res2_posterior[:, d]
         x_grid = np.linspace(min(p.min(), q.min()), max(p.max(), q.max()), 1000)
         min_len = min(len(p), len(q))
         p, q = np.random.choice(p, min_len), np.random.choice(q, min_len)
@@ -35,6 +33,7 @@ def compute_kl_div(res1_posterior, res2_posterior, use_kde=False, bandwidth=0.2,
         kl_divs.append(entropy(p_density, q_density))
     return f"{np.mean(kl_divs):.2f}"
 
+
 class PosteriorDatasets:
     def __init__(self, posteriors: List[np.ndarray], truths: np.ndarray, params: List[str], labels: List[str]):
         self.chains = posteriors
@@ -44,11 +43,10 @@ class PosteriorDatasets:
         self.n_post, self.n_samp, self.n_dim = (len(posteriors), *posteriors[0].shape)
         kl_1 = compute_kl_div(posteriors[0], posteriors[2])
         kl_2 = compute_kl_div(posteriors[1], posteriors[2])
-        self.chainLabels[0]+= f" ($D={kl_1}$)"
+        self.chainLabels[0] += f" ($D={kl_1}$)"
         self.chainLabels[1] += f" ($D={kl_2}$)"
         assert len(truths) == self.n_dim
         assert len(labels) == self.n_post
-
 
     @property
     def posterior_matrix(self):
@@ -81,6 +79,7 @@ class PosteriorDatasets:
             "paramRanges": self.paramRanges,
             "reference": self.chains[2],
         }
+
 
 if __name__ == '__main__':
     data = PosteriorDatasets.from_cache()
