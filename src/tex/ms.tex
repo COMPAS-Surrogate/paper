@@ -300,6 +300,18 @@ with mean metallicity parametrised as in \citet{Langer_2006}:
 We vary SFR parameters $a$ and $d$, and the metallicity distribution parameters $\alpha$ and $\sigma$, in this study, while fixing $b=2.77$, $c=2.9$, and $Z_0=0.035$.  \resp{\citet{Neijssel_2019} demonstrated that a range of star-formation history models can be mimicked by varying only this subset of \ac{MSSFR} parameters.  We therefore choose to vary the same parameters for consistency with their analysis.  Moreover, reducing the number of parameters allows us to limit computational complexity for this proof-of-principle study.}
 
 
+\begin{figure}[ht!]
+    \script{plot_mcz_grid.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/mcz_grid.pdf}
+        \caption{
+            McZ grid given differnt SFR parameters. Fiducial model is in X, 
+        }
+        \label{fig:mcz_grid}
+    \end{centering}
+\end{figure}
+
+
 \subsection{Cosmic integration}
 Talk about how we run cosmic int,
 show plots of Mcz grid for different SF
