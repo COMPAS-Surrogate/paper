@@ -429,7 +429,7 @@ fill=green!30]
 \node (train) [process, below of=compute] {Train \Lsurr};
 \node (sample) [process, below of=train] {Sample 
 $p(\lambda|\mathcal{D})\sim\Lsurr\pi(\lambda)$};
-\node (check) [decision, below of=sample, yshift=-0.5cm] {\mathcal{O}(\lambda) > N?};
+\node (check) [decision, below of=sample, yshift=-0.5cm] {$\mathcal{O}(\lambda) > N?$};
 
 \node (stop) [startstop, below of=check] {Stop};
 \node (acquire) [process, right of=check, xshift=2cm] {Acquire $\lambda$};
@@ -576,19 +576,14 @@ Include PP plot
 
 
 %--------------------------------------------------------
-\section{LVK analysis}
-\subsection{Data}
+\subsection{LVK analysis}
+\paragraph{}{Data}
 
-\begin{figure}[ht!]
-    \script{plot_ogc4_events.py}
-    \begin{centering}
-        \includegraphics[width=0.8\columnwidth]{figures/ogc4_events.pdf}
-        \caption{
-            The events and uncertainty as predicted by Ogc4
-        }
-        \label{fig:ogc4_events}
-    \end{centering}
-\end{figure}
+We get the data from the \ogc.
+Plots of the event $\Mc,z$ median estimates and $X-\sigma$ uncertainty can be found in Figure X in the Appendix.
+
+
+
 
 \begin{figure}[ht!]
     \script{plot_ogc4_weights.py}
@@ -662,6 +657,20 @@ Discussions with Renate, Matt, Kate.
 \bibliography{bib}
 
 \appendix
+
+\section{OGC4 Events}
+
+
+\begin{figure}[ht!]
+    \script{plot_ogc4_events.py}
+    \begin{centering}
+        \includegraphics[width=0.8\columnwidth]{figures/ogc4_events.pdf}
+        \caption{
+            The events and uncertainty as predicted by Ogc4
+        }
+        \label{fig:ogc4_events}
+    \end{centering}
+\end{figure}
 
 \section{$\pi(\mathcal{M}, D_{C})$ to $\pi(\mathcal{M}, z)$}
 
