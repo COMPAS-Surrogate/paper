@@ -21,6 +21,18 @@
 \usepackage{mathtools}
 \usepackage{showyourwork}
 
+
+\usepackage{float}
+\makeatletter
+\let\newfloat\newfloat@ltx
+\makeatother
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
 \setlength{\marginparwidth}{1.5cm}
 
 
@@ -40,7 +52,123 @@
 \acrodef{LVK}{LIGO--VIRGO--KAGRA}
 
 
-\input{custom_commands}
+
+\newcommand\COMPAS{{\sc{COMPAS}}\xspace}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\MSFR}{\ensuremath{{M}_{\rm{SFR}}}\xspace}
+\newcommand{\ts}{\ensuremath{{t}_{\rm{s}}}\xspace}
+\newcommand{\tsup}{\textsuperscript}
+\newcommand{\Vc}{\ensuremath{{V}_{\rm{c}}}\xspace}
+
+\newcommand{\monei}{\ensuremath{m_{1,\rm{i}}}\xspace}
+\newcommand{\mtwoi}{\ensuremath{m_{2,\rm{i}}}\xspace}
+\newcommand{\monef}{\ensuremath{m_{1,\rm{f}}}\xspace}
+\newcommand{\mtwof}{\ensuremath{m_{2,\rm{f}}}\xspace}
+\newcommand{\ai}{\ensuremath{a_{\rm{i}}}\xspace}
+\newcommand{\qi}{\ensuremath{q_{\rm{i}}}\xspace}
+\newcommand{\Zi}{\ensuremath{Z_{\rm{i}}}\xspace}
+\newcommand{\vk}{\ensuremath{v_{\rm{k}}}\xspace}
+\newcommand{\thetak}{\ensuremath{{\theta}_{\rm{k}}}\xspace}
+\newcommand{\phik}{\ensuremath{{\phi}_{\rm{k}}}\xspace}
+\newcommand{\ei}{\ensuremath{{e}_{\rm{i}}}\xspace}
+
+\newcommand{\Msun}{\ensuremath{\,\rm{M}_{\odot}}\xspace}
+\newcommand{\Zsun}{\ensuremath{\,\rm{Z}_{\odot}}\xspace}
+\newcommand{\kms}{\ensuremath{\,\rm{km}\,\rm{s}^{-1}}\xspace}
+\newcommand{\AU}{\ensuremath{\,\mathrm{AU}}\xspace}
+\newcommand{\Mc}{\ensuremath{\mathcal{M}}\xspace}
+
+\newcommand{\Lmain}{\ensuremath{\mathcal{L}(\mathcal{D}|\lambda)}\xspace}
+\newcommand{\Lp}{\ensuremath{\mathcal{L}_{\rm p}}\xspace}
+\newcommand{\Le}{\ensuremath{\mathcal{L}_{\rm event}}\xspace}
+\newcommand{\pg}{\ensuremath{p_{\rm grid}}\xspace}
+\newcommand{\Lsurr}{\ensuremath{\mathcal{L}^{\star}(\lambda)}\xspace}
+
+
+%%%%%%%%%%%%%%% SYMBOLS
+
+% Projects:
+\newcommand{\project}[1]{\textsf{#1}}
+
+\newcommand{\python}{\project{Python}}
+\newcommand{\jupyter}{\project{Jupyter}}
+
+\newcommand{\exoplanet}{\project{exoplanet}}
+\newcommand{\lightkurve}{\project{lightkurve}}
+\newcommand{\starry}{\project{starry}}
+\newcommand{\pymc}{\project{PyMC3}}
+\newcommand{\pymcextra}{\project{pymc3-ext}}
+\newcommand{\celerite}{\project{celerite}}
+\newcommand{\astropy}{\project{astropy}}
+\newcommand{\scipy}{\project{scipy}}
+\newcommand{\jupytext}{\project{jupytext}}
+\newcommand{\sphinx}{\project{sphinx}}
+\newcommand{\jupyterbook}{\project{Jupyter-book}}
+\newcommand{\arviz}{\project{ArviZ}}
+\newcommand{\nbconvert}{\project{nbconvert}}
+\newcommand{\numpy}{\project{numpy}}
+\newcommand{\pandas}{\project{pandas}}
+\newcommand{\matplotlib}{\project{matplotlib}}
+\newcommand{\corner}{\project{corner}}
+\newcommand{\emcee}{\project{emcee}}
+\newcommand{\trieste}{\project{trieste}}
+\newcommand{\tensorflow}{\project{TensorFlow}}
+\newcommand{\pycbc}{\project{PyCBC}}
+
+
+
+\newcommand{\LVK}{\project{LVK}}
+\newcommand{\mast}{\project{MAST}}
+\newcommand{\exofop}{\project{ExoFOP}}
+\newcommand{\tessAtlas}{\project{TESS Atlas}}
+\newcommand{\ogc}{\project{4-OGC}}
+
+% math
+\newcommand{\T}{\ensuremath{\mathrm{T}}}
+\newcommand{\dd}{\ensuremath{ \mathrm{d}}}
+% \newcommand{\unit}[1]{{\ensuremath{ \mathrm{#1}}}}
+\newcommand{\bvec}[1]{{\ensuremath{\boldsymbol{#1}}}}
+
+
+\DeclareMathOperator{\invG}{Inv-\mathnormal{\Gamma}}
+\DeclareMathOperator{\N}{\mathcal{N}}
+\DeclareMathOperator{\U}{\mathcal{U}}
+\DeclareMathOperator{\Un}{\mathcal{U}}
+\DeclareMathOperator{\Par}{\mathcal{P}ar}
+\DeclareMathOperator{\tmin}{\mathnormal{t_{\rm min}}}
+\DeclareMathOperator{\tmax}{\mathnormal{t_{\rm max}}}
+
+
+
+
+
+%% affiliation shortcuts
+\newcommand{\SPA}{School of Physics and Astronomy, Monash University, Clayton VIC 3800, Australia}
+\newcommand{\OzGravMonash}{OzGrav: The ARC Centre of Excellence for Gravitational Wave Discovery, Clayton VIC 3800, Australia}
+\newcommand{\AMNH}{Department of Astrophysics, American Museum of Natural History, New York, NY 10024, USA}
+\newcommand{\CCA}{Center for Computational Astrophysics, Flatiron Institute, New York, NY 10010, USA}
+\newcommand{\CUNY}{Graduate Center, City University of New York, 365 5th Avenue, New York, NY 10016, USA}
+\newcommand{\BMCC}{Department of Science, BMCC, City University of New York, New York, NY 10007, USA}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%
+
+\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
+\newcommand{\jeff}[1]{\textbf{\textcolor{orange-red}{#1}}}
+\newcommand{\ilya}[1]{\textbf{\textcolor{magenta}{#1}}}
+\newcommand{\avi}[1]{\textbf{\textcolor{cyan}{#1}}}
+\newcommand{\chayan}[1]{\textbf{\textcolor{green}{#1}}}
+\newcommand{\resp}[1]{#1}
 
 
 
@@ -49,7 +177,6 @@
 \begin{document}
 
 \title{\resp{COMPAS Star-formation LnL GP surrogate}}
-
 
 % Authors
 \author{Avi Vajpeyi}
@@ -82,8 +209,8 @@
 
 \section{Introduction}
 \label{sec:intro}
-Over the past decade, the improvements in detector sensitivity have led to an exponential increase in the rate of GW detections.
-With next-generation detectors on the horizon (such as CE, ET, LISA), the number of GW detections will increase even more.
+Over the past decade, improvements in detector sensitivity have led to an exponential increase in the rate of GW detections.
+With next-generation detectors on the horizon (such as CE, ET, and LISA), the number of GW detections will increase even more.
 The most recent catalogue of GW contains
 XX events, the majority of them being Binary Black Holes
 (BBHs), with XX public alerts for GW that have yet to be confirmed as astrophysiocal events.
@@ -122,8 +249,6 @@ We provide some concluding remarks in  Section 4
 
 %--------------------------------------------------------
 \section{Method}
-\subsection{Gaussian process and Bayesian Optimisation}
-Talk about bayesian optimisation
 
 
 \subsection{MSSFR parameters}\label{sec:method_parameters}
@@ -180,17 +305,14 @@ Talk about how we run cosmic int,
 show plots of Mcz grid for different SF
 
 \subsection{Bayesian Model}
-We define the likelihood $\mathcal{L}$ that we will see the data $\mathcal{D}$ for a particular set of parameters $\lambda$ as
-
+Given $N_{\mathrm{obs}}$ observations from data  $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$, we define the likelihood $\mathcal{L}$ that we will see data $\mathcal{D}$ for a particular set of parameters $\lambda$ as
 \begin{equation}
-  \log{\mathcal{L}\left( \mathcal{D} |\lambda\right)} = \log{\Lp\left(N_{\mathrm{obs}}|\lambda\right)} +
-  \sum_{i=1}^{N_\mathrm{obs}} \log{\Le(D_i|\lambda)},
+  \log{\Lmain} = \log{\Lp\left(N_{\mathrm{obs}}|\lambda\right)} +
+  \sum_{i=1}^{N_\mathrm{obs}} \log{\Le(D_i|\lambda)}\ .
   \label{eq:methods_likelihood}
 \end{equation}
 
-\bigskip\noindent
-where $N_{\mathrm{obs}}$ is the number of observations in the data $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$.
-
+\bigskip
 The first term of Equation~\ref{eq:methods_likelihood} is a Poisson likelihood on there being $N_\mathrm{obs}$ detections,
 
 \begin{equation}
@@ -212,19 +334,12 @@ The second term of Equation~\ref{eq:methods_likelihood} is comprised of a produc
 
 \bigskip\noindent
 where $\pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda)$ is the entry in the probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ in the $z$ and $\mathcal{M}$ bin of the observed $i^{th}$ event.
+
 The probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ is constructed by dividing the entries in the matrix of expected detections for a given $\lambda$, generated by multiplying the surrogate model detection rate matrix by the run duration, by the sum of the entries in the matrix, $\mu$.
 
 
-\subsection{Using gravitational wave observations}\label{sec:method_LVK}
-
-The catalogue of LIGO, Virgo, and KAGRA (LVK) gravitational wave observations (\citet{GWTC-2_1_zenodo}, \citet{GWTC-3_zenodo}) provides us with a number of merger detections from a population of \acp{DCO}.  For each LVK event we know, among other things, the chirp mass of the merging binary and the merger redshift, up to a measurement uncertainty. We only include confident detections with a minimum astrophysical probability $p_{astro} \ge 0.95$; although less confident events could be included \citep[e.g.][]{Farr_2015}, they will typically contribute little information due to greater measurement uncertainties, so we omit them for this proof-of-concept study.
-
-Once we validate our method, we can use our surrogate model and the LVK data to infer real physical constraints on the parameters under study, with the important caveat that we have fixed the astrophysical parameters, and any errors in those could bias the inferred \ac{MSSFR} model values.
-
-
-\subsubsection{LVK likelihood calculation}\label{sec:method_LVK_likelihood_calculation}
-
- In practice, for LVK events, we may not know the values $z_i, \Mc_{i}$ and hence the probability $\Le(z=z_i,\Mc=\Mc_{i}|\lambda)$ for the observed $i^{th}$ event in Equation~\ref{eq:methods_likelihood_term2} perfectly, but may only have $K$ samples from a posterior $p(z_i,\Mc_{i}|D_i)$.  For LVK data, we substitute the following for Equation~\ref{eq:methods_likelihood_term2}:
+ In practice, we may not know the values $z_i, \Mc_{i}$ perfectly,  but may only have $K$ samples from a posterior $p(z_i,\Mc_{i}|D_i)$.
+ Hence the probability $\Le(z=z_i,\Mc=\Mc_{i}|\lambda)$ for the  $i^{th}$ event in Equation~\ref{eq:methods_likelihood_term2} can be re-written as
 
 \begin{equation}
   \Le(D_i|\lambda) = \frac{1}{K} \sum_{k=1}^K \frac{\pg(z=z_i^k, \Mc=\Mc_{i}^k|\lambda)}{\pi(z_i^k,\Mc_i^k)},
@@ -232,10 +347,9 @@ Once we validate our method, we can use our surrogate model and the LVK data to 
 \end{equation}
 
 \bigskip\noindent
-where the subscript $k$ refers to the $k^{th}$ posterior sample among $K$ available samples for event $i$ and $\pi(z,\Mc)$ is the prior used by LVK data analysts in the original inference on the observed events \citep[see, e.g.][]{Mandel_2019}.
+where the subscript $k$ refers to the $k^{th}$ posterior sample among $K$ available samples, and $\pi(z,\Mc)$ is the prior used in the original inference for the event~\citep[see, e.g.][]{Mandel_2019}.
 
-
-In practice, if the number of bins where an event has posterior support is much smaller than the number of samples $K$, it may be more efficient to pre-compute the weight that each observed event $i$ contributes to each of the bins $b$, $w_{i,b}$, which is independent of $\lambda$:
+ If the number of bins where an event has posterior support is much smaller than the number of samples $K$, it may be more efficient to pre-compute the weight that each observed event $i$ contributes to each of the bins $b$, $w_{i,b}$, which is independent of $\lambda$:
 
 \begin{equation}
     w_{i,b} = \frac{1}{K} \sum^K_{k=1} \frac{I(\{z^k_i,\Mc^k_i\} \in b)}{\pi(z_i^k,\Mc_i^k)} \ ,
@@ -244,19 +358,168 @@ where $I(\{z^k_i,\Mc^k_i\} \in b$ is an indicator function that evaluates to 1 i
 Then the probability $\Le(D_i|\lambda)$ can be evaluated as a sum over bins,
 
 \begin{equation}
-    \Le(D_i|\lambda) = \sum_b \pg(z^b, \Mc^b | \lambda) w_{i,b}
+    \Le(D_i|\lambda) = \sum_b \pg(z^b, \Mc^b | \lambda)\,  w_{i,b}\, .
 \end{equation}
 
 
+Unfortunatly, \Lmain is an expensive function, making it hard to sample with.
+In the next section, we discuss a surrogate model for \Lmain that is cheaper to sample with.
+
+\subsection{GP surrogate using Bayesian optimisation }
+Given  $M$ ``observations" of \Lmain, $\{\mathcal{L}(\lambda_0), ..., \mathcal{L}(\lambda_M)\}$, we  define a conditional probabilty distribution
+\begin{align}
+    \Lsurr &= \mathcal{GP}( \mathcal{L}(\lambda) | \mathcal{L}(\lambda_0), ..., \mathcal{L}(\lambda_M))\, \nonumber \\
+    &= \mathcal{GP}(\mu(\lambda), \Sigma(\lambda))
+\end{align}
+where the conditional probability distribution is given by a Guassian process $\mathcal{GP}$, of mean $\mu$ and covariane $\Sigma$.
+A Gaussian process, provides a Bayesian posterior probability
+distribution that describes potential values for $\Lmain$ at a candidate point $\lambda$.
+Each time we observe a new $\mathcal{L}(\lambda')$, this posterior distribution is updated.
+
+\begin{algorithm}
+\caption{Basic pseudo-code for Bayesian optimization}
+\label{alg:BayesOpt}
+\begin{algorithmic}[1] % [1] turns on line numbering
+    \STATE Place Gaussian process $\mathcal{GP}$ prior on $\Lmain$
+    \STATE Observe $\Lmain$ at $N_0$ points randomly sampled.
+    \WHILE{$n \le N$}
+        \STATE Update the posterior probability distribution on $\Lmain$ using all available data
+        \STATE Let $\lambda_{\rm best}$ be a maximizer of the acquisition function over $\lambda$, where the acquisition function is computed using the current posterior distribution.
+        \STATE Observe $L_{\rm best} = \mathcal{L}(\mathcal{D}|\lambda_{\rm best})$.
+        \STATE Increment $n$
+    \ENDWHILE
+    \STATE Return a solution: $\Lsurr \sim \mathcal{GP}(\lambda)$
+\end{algorithmic}
+\end{algorithm}
+
+
+The acquisition function measures the value that would be generated by
+evaluation of the objective function at a new point $\lambda'$, based on the current posterior distribution over \Lmain. We discuss expected improvement, the most commonly used ac
+
+Bayesian optimisation modeling using Gaussian processes is discussed in detail in~\cite{}.
+
+\tikzstyle{startstop} = [rectangle, rounded corners,
+minimum width=3cm,
+minimum height=1cm,
+text centered,
+draw=black,
+fill=red!30]
+
+
+\tikzstyle{process} = [rectangle,
+minimum width=3cm,
+minimum height=1cm,
+text centered,
+text width=3cm,
+draw=black,
+fill=orange!30]
+
+\tikzstyle{decision} = [diamond,
+minimum width=3cm,
+minimum height=1cm,
+text centered,
+draw=black,
+fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{tikzpicture}[node distance=2cm]
+
+\node (start) [startstop] {Sample $\pi(\lambda)$};
+\node (compute) [process, below of=start] {Compute $\Lmain$};
+\node (train) [process, below of=compute] {Train \Lsurr};
+\node (sample) [process, below of=train] {Sample
+$p(\lambda|\mathcal{D})\sim\Lsurr\pi(\lambda)$};
+\node (check) [decision, below of=sample, yshift=-0.5cm] {\mathcal{O}(\lambda) > N?};
+
+\node (stop) [startstop, below of=check] {Stop};
+\node (acquire) [process, right of=check, xshift=2cm] {Acquire $\lambda$};
+
+
+\draw [arrow] (start) -- (compute);
+\draw [arrow] (compute) -- (train);
+\draw [arrow] (train) -- (sample);
+\draw [arrow] (sample) -- (check);
+\draw [arrow] (check) -- node[anchor=east] {no} (acquire);
+\draw [arrow] (check) -- node[anchor=south] {yes} (stop);
+\draw [arrow] (acquire) |- (compute);
+
+\end{tikzpicture}
+
+\subsection{Acquisition Functions}
+
+An acquisition function is a function that maps the posterior predictive mean and variance to a scalar value. The scalar value is used to select the next point to observe from the model.
+
+In general, we will write the acquisition function as $\alpha(\mu,\sigma)$, where $\mu$ is the posterior predictive mean and $\sigma$ is the posterior predictive variance.
+
+Each criterion performs a trade-off between exploration i.e. investigating regions where the variance is large and exploitation i.e. investigating regions where the prediction is minimized.
+
+\paragraph{Uncertainty-based exploration (UE)}
+
+This acquisition function aims at reducing the uncertainty of the GP model. It is defined as
+
+$$
+\alpha_{\rm{UE}}^i(\sigma^i)= \sigma^i
+$$
+
+and helps to explore the function space in regions of high uncertainty.
+
+One of the most popular BO algorithms is the Efficient Global Optimization (EGO) \cite{jones1998efficient}.
+It uses GP as surrogate model and the Expected Improvement as the infill sampling criterion. This work is focused on BO algorithms using GP and its variants as surrogate models.
+
+
+\paragraph{Expected Improvement}
+
+This also focuses on the maximisation/minimisation of the GP's posterior predictive mean.
+It looks for the best value of $\mu$ so far and then looks for the next point that has a higher probability of being better than the best value so far.
+
+$$
+\alpha_{\rm{EI}}^i(\mu^i, \sigma^i)= \sigma^i\ (u^i \mathcal{N}_{\rm CDF}(u^i) \mathcal{N}_{\rm PDF}(u^i)\ ,
+$$
+
+where $u^i = \frac{\mu^i - \mu_{\rm{best}}}{\sigma^i}$ and $\mu_{\rm{best}}$ is the best value of $\mu$ so far.
+
+where $\mathcal{N}_{\rm PDF}$ denotes the Probability Density function (PDF) of the univariate Gaussian probability distribution.
+
+While we would like to choose $x$ so that this improvement is large, $f(x)$ is unknown until after the evaluation.  What we can do, however,
+is to take the expected value of this improvement and choose $x$ to maximize it.
+
+The Expected Improvement (EI)takes into account the improvement induced by a candidate that is defined as: $I(\textbf{x})=\text{max}\{0,y_{\text{min}}-f(\textbf{x})\}$.
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Diagnostics}
-variable LnL and Kl divergence
+
+\begin{equation}
+    \mathcal{L}^{\star}(\lambda) = \mu_{\mathcal{GP}}(\lambda)
+\end{equation}
+\begin{equation}
+    \mathcal{L}^{\star}_{V}(\lambda) = \mathcal{N}(\mu_{\mathcal{GP}}(\lambda), \sigma_{\mathcal{GP}}(\lambda))
+\end{equation}
+
+
 
 %--------------------------------------------------------
-\section{Toy model}
-Include corners of variable LnL + normal LnL
-Include KL divergence (low number points --> high points)
-Include PP plot
+\section{Inference with surrogate model}
 
+\subsection{Simulation study}
+
+To validate our method, following Section 2.5 of \citep{}, we sample 100 $\lambda$ from a $\pi(\lambda)$, and generate $\vec{\mathcal{D}}$, unique mock \COMPAS populations for each $\lambda$.
+We build surrogate likelihoods for each dataset, and use them to approximate $p(\lambda|\mathcal{D})$.
+Figure~\ref{fig:simulation_posterior} displays the $p(\lambda|\mathcal{D})$ for one mock population.
+The gray ``reference'' posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}$ tranined with 950 points.
+The blue posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}_V$ trained with 50 points, while the purple posterior's surrogate is built with 325 points.
+The blue posterior has a $D_{KL}>10$ when compared with the gray reference posterior.
+The purple  posterior has a $D_{KL}<1$ when compared with the gray reference posterior, indicating that the two posteriors are similar.
+The orange line marks the true $\lambda$ used to generate the dataset.
 \begin{figure}[ht!]
     \script{plot_simulation_posterior.py}
     \begin{centering}
@@ -267,6 +530,33 @@ Include PP plot
         \label{fig:simulation_posterior}
     \end{centering}
 \end{figure}
+
+
+The PP-plot in Figure~\ref{fig:pp_plot} shows that the true value lies withing the correct region of the credible intervals, indicating that the results are not biased.
+\begin{figure}[ht!]
+    \script{plot_pp_plot.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/pp_plot.pdf}
+        \caption{
+            PP-plots from simulation study.
+        }
+        \label{fig:pp_plot}
+    \end{centering}
+\end{figure}
+
+
+Finally, Figure~\ref{} shows the JS diveregence
+
+
+
+The catalogue of LIGO, Virgo, and KAGRA (LVK) gravitational wave observations (\citet{GWTC-2_1_zenodo}, \citet{GWTC-3_zenodo}) provides us with a number of merger detections from a population of \acp{DCO}.  For each LVK event we know, among other things, the chirp mass of the merging binary and the merger redshift, up to a measurement uncertainty. We only include confident detections with a minimum astrophysical probability $p_{astro} \ge 0.95$; although less confident events could be included \citep[e.g.][]{Farr_2015}, they will typically contribute little information due to greater measurement uncertainties, so we omit them for this proof-of-concept study.
+
+Once we validate our method, we can use our surrogate model and the LVK data to infer real physical constraints on the parameters under study, with the important caveat that we have fixed the astrophysical parameters, and any errors in those could bias the inferred \ac{MSSFR} model values.
+
+Include corners of variable LnL + normal LnL
+Include KL divergence (low number points --> high points)
+Include PP plot
+
 
 
 
@@ -283,16 +573,6 @@ Include PP plot
 \end{figure}
 
 
-\begin{figure}[ht!]
-    \script{plot_pp_plot.py}
-    \begin{centering}
-        \includegraphics[width=\linewidth]{figures/pp_plot.pdf}
-        \caption{
-            PP-plots from simulation study.
-        }
-        \label{fig:pp_plot}
-    \end{centering}
-\end{figure}
 
 
 %--------------------------------------------------------
@@ -302,7 +582,7 @@ Include PP plot
 \begin{figure}[ht!]
     \script{plot_ogc4_events.py}
     \begin{centering}
-        \includegraphics[width=\linewidth]{figures/ogc4_events.pdf}
+        \includegraphics[width=0.8\columnwidth]{figures/ogc4_events.pdf}
         \caption{
             The events and uncertainty as predicted by Ogc4
         }
@@ -326,9 +606,16 @@ Describe OGC4 data
 \subsection{Results}
 Describe LVK results, compare with Riley et al.
 
+
 %--------------------------------------------------------
 \section{Discussion}
 
+We do not
+\begin{itemize}
+    \item Do hyper-parameter optimisation for the GP (kernal choices, kernel settings)
+    \item Do hyper-parameter optimisation for the acquisition function
+    \item Explore range of acquisition functions
+\end{itemize}
 
 
 %%% DATA AVAILABILITY %%%
@@ -344,29 +631,27 @@ IM is a recipient of the Australian Research Council Future Fellowship FT1901005
 AV is XX.
 Discussions with Renate, Matt, Kate.
 
+
+
+\vspace{5mm}
+\facilities{LIGO-VIRGO-KAGRA}
 %
-%
-%\vspace{5mm}
-%\facilities{LIGO-VIRGO-KAGRA}
-%%
-%%\software{
-%%\python~\citep{pythonForScientificComputing,pythonForScientists},
-%%\astropy~\citep{astropy},
-%%\arviz~\citep{arviz_2019},
-%%\exoplanet~\citep{Foreman-Mackey:2021:JOSS},
-%%\lightkurve~\citep{LightkurveCollaboration:2018:ascl},
-%%\starry~\citep{Luger:2019:AJ},
-%%\celerite~\citep{Foreman-Mackey:2017:ascl},
-%%\pymc~\citep{Salvatier:2016:ascl},
-%%\numpy~\citep{numpy},
-%%\scipy~\citep{SciPy},
-%%\pandas~\citep{pandas},
-%%\matplotlib~\citep{matplotlib},
-%%\corner~\citep{corner},
-%%\sphinx~\citep{sphinx_doc},
-%%\jupyter~\citep{jupyter},
-%%\jupyterbook~\citep{jupyter_book}.
-%%}
+\software{
+\python~\citep{pythonForScientificComputing,pythonForScientists},
+\astropy~\citep{astropy},
+\COMPAS~\citep{COMPAS_SOFTWARE_2022},
+\pycbc~\citep{},
+\emcee~\citep{},
+\trieste~\citep{},
+\tensorflow~\citep{},
+\numpy~\citep{numpy},
+\scipy~\citep{SciPy},
+\pandas~\citep{pandas},
+\matplotlib~\citep{matplotlib},
+\corner~\citep{corner},
+\sphinx~\citep{sphinx_doc},
+\jupyterbook~\citep{jupyter,jupyter_book}.
+}
 
 
 
@@ -553,10 +838,6 @@ Binary population synthesis code                                      & COMPAS &
 % \end{adjustbox}
 }
 \end{table*}
-
-
-
-
 
 
 
