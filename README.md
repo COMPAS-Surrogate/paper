@@ -25,3 +25,7 @@ Local build with:
 ```bash
 showyourwork build --conda-frontend=mamba
 ```
+
+All text whould be written in overleaf.
+All figures should be created from this repo.
+
