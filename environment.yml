@@ -9,4 +9,4 @@ dependencies:
   - pandas
   - pip:
       - matplotlib>=3.4.3
-      - git+https://github.com/COMPAS-Surrogate/ogc4_interface.git#egg=ogc4_interface
+      - git+https://github.com/COMPAS-Surrogate/ogc4_interface.git
