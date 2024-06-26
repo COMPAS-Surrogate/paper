@@ -251,9 +251,8 @@ We provide some concluding remarks in  Section 4
 \section{Method}
 
 
-\subsection{MSSFR parameters}\label{sec:method_parameters}
-\avi{SECTION TAKEN FROM \citep{Riley:2023:ApJ}, FIGURE OUT OUT HOW CONDENSE}
-The parameters we chose to vary for this study are four free parameters for the calculation of the \ac{MSSFR} in the phenomenological model of \citet{Neijssel_2019}. In this model, the \ac{MSSFR} is split into two parts, the star formation rate (SFR) and the metallicity distribution:
+\subsection{MSSFR parameters and $\Mc-z$ rates}\label{sec:method_parameters}
+Following \citep{Riley:2023:ApJ}, we vary four free parameters for the calculation of the \ac{MSSFR} in the phenomenological model of \citet{Neijssel_2019}. In this model, the \ac{MSSFR} is split into two parts, the star formation rate (SFR) and the metallicity distribution:
 
 
 \begin{equation}
@@ -297,24 +296,27 @@ with mean metallicity parametrised as in \citet{Langer_2006}:
 \end{equation}
 
 \bigskip\noindent
-We vary SFR parameters $a$ and $d$, and the metallicity distribution parameters $\alpha$ and $\sigma$, in this study, while fixing $b=2.77$, $c=2.9$, and $Z_0=0.035$.  \resp{\citet{Neijssel_2019} demonstrated that a range of star-formation history models can be mimicked by varying only this subset of \ac{MSSFR} parameters.  We therefore choose to vary the same parameters for consistency with their analysis.  Moreover, reducing the number of parameters allows us to limit computational complexity for this proof-of-principle study.}
+We vary SFR parameters $a$ and $d$, and the metallicity distribution parameters $\alpha$ and $\sigma$. 
+We fix $b=2.77$, $c=2.9$, and $Z_0=0.035$.  
+
+Varying these parameters in \COMPAS results in different merger rate distributions (see \citep{Riley:2023:ApJ, Neijssel_2019}). 
 
 
-\begin{figure}[ht!]
+Plots of the SFR, metallicity distributions and resultant merger rate distributions for different $\Mc$ and $z$ are shown in Figure~\ref{fig:mcz_grid} for three different choices of parameters.
+
+\begin{figure*}[ht!]
     \script{plot_mcz_grid.py}
     \begin{centering}
-        \includegraphics[width=\linewidth]{figures/mcz_grid.pdf}
+        \includegraphics[width=\textwidth]{figures/mcz_grid.pdf}
         \caption{
             McZ grid given differnt SFR parameters. Fiducial model is in X, 
         }
         \label{fig:mcz_grid}
     \end{centering}
-\end{figure}
+\end{figure*}
 
 
-\subsection{Cosmic integration}
-Talk about how we run cosmic int,
-show plots of Mcz grid for different SF
+
 
 \subsection{Bayesian Model}
 We use the Bayesian model described in \citep{Riley:2023:ApJ}.
@@ -366,7 +368,7 @@ where the subscript $k$ refers to the $k^{th}$ posterior sample among $K$ availa
 
  If the number of bins where an event has posterior support is much smaller than the number of samples $K$, it may be more efficient to pre-compute the weight that each observed event $i$ contributes to each of the bins $b$, $w_{i,b}$, which is independent of $\lambda$:
 
-\begin{equation}
+\begin{equation}\label{eq:weights}
     w_{i,b} = \frac{1}{K} \sum^K_{k=1} \frac{I(\{z^k_i,\Mc^k_i\} \in b)}{\pi(z_i^k,\Mc_i^k)} \ ,
 \end{equation}
 where $I(\{z^k_i,\Mc^k_i\} \in b$ is an indicator function that evaluates to 1 if sample $\{z^k_i,\Mc^k_i\}$ falls into bin $b$ and $0$ otherwise.
@@ -478,8 +480,8 @@ $$
 
 and helps to explore the function space in regions of high uncertainty.
 
-One of the most popular BO algorithms is the Efficient Global Optimization (EGO) \cite{jones1998efficient}. 
-It uses GP as surrogate model and the Expected Improvement as the infill sampling criterion. This work is focused on BO algorithms using GP and its variants as surrogate models.
+One of the most popular BO algorithms is the Efficient Global Optimization (EGO). 
+It uses GP as surrogate model and the Expected Improvement as the infill sampling criterion. 
 
 
 \paragraph{Expected Improvement}
@@ -513,6 +515,7 @@ The Expected Improvement (EI)takes into account the improvement induced by a can
 
 \subsection{Diagnostics}
 
+We run an MCMC sampler using
 \begin{equation}
     \mathcal{L}^{\star}(\lambda) = \mu_{\mathcal{GP}}(\lambda)
 \end{equation}
@@ -521,13 +524,20 @@ The Expected Improvement (EI)takes into account the improvement induced by a can
 \end{equation}
 
 
+The KL divergence using the two \Lsurr should converge once the model is trained. 
+Additionally, the KL divergence using a reference posterior trainined with a lot of points should converge.
+This will indicate that the surrogate likelihood distribution has been adequately modelled in regions of parameter space. 
+
 
 %--------------------------------------------------------
 \section{Inference with surrogate model}
 
 \subsection{Simulation study}
 
-To validate our method, following Section 2.5 of \citep{}, we sample 100 $\lambda$ from a $\pi(\lambda)$, and generate $\vec{\mathcal{D}}$, unique mock \COMPAS populations for each $\lambda$.
+To validate our method, we conduct the the study described in Section 2.5 of \citep{Riley:2023:ApJ}.
+
+We simulate the evolution of 32 million binary systems using \COMPAS (settings specified in Appendix~\ref{sec:appendix_COMPAS_fiducial}), resulting in a population of approximately 68 thousand DCOs that merge within the age of the Universe, $\sim13.8\unit{Gyr}$. 
+We sample 100 $\lambda$ from a $\pi(\lambda)$, and generate $\vec{\mathcal{D}}$, unique mock \COMPAS populations for each $\lambda$.
 We build surrogate likelihoods for each dataset, and use them to approximate $p(\lambda|\mathcal{D})$.
 Figure~\ref{fig:simulation_posterior} displays the $p(\lambda|\mathcal{D})$ for one mock population.
 The gray ``reference'' posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}$ tranined with 950 points.
@@ -560,21 +570,7 @@ The PP-plot in Figure~\ref{fig:pp_plot} shows that the true value lies withing t
 \end{figure}
 
 
-Finally, Figure~\ref{} shows the JS diveregence 
-
-
-
-The catalogue of LIGO, Virgo, and KAGRA (LVK) gravitational wave observations (\citet{GWTC-2_1_zenodo}, \citet{GWTC-3_zenodo}) provides us with a number of merger detections from a population of \acp{DCO}.  For each LVK event we know, among other things, the chirp mass of the merging binary and the merger redshift, up to a measurement uncertainty. We only include confident detections with a minimum astrophysical probability $p_{astro} \ge 0.95$; although less confident events could be included \citep[e.g.][]{Farr_2015}, they will typically contribute little information due to greater measurement uncertainties, so we omit them for this proof-of-concept study.
-
-Once we validate our method, we can use our surrogate model and the LVK data to infer real physical constraints on the parameters under study, with the important caveat that we have fixed the astrophysical parameters, and any errors in those could bias the inferred \ac{MSSFR} model values.
-
-Include corners of variable LnL + normal LnL
-Include KL divergence (low number points --> high points)
-Include PP plot
-
-
-
-
+Finally, Figure~\ref{fig:kl_distances} shows the JS diveregence 
 
 \begin{figure}[ht!]
     \script{plot_kl_distances.py}
@@ -590,16 +586,48 @@ Include PP plot
 
 
 
+
+
+
+
+
+
+
+
 %--------------------------------------------------------
 \subsection{LVK analysis}
-\paragraph{}{Data}
+\paragraph{Data}
 
+The catalogue of LIGO, Virgo, and KAGRA (LVK) gravitational wave observations (\citet{GWTC-2_1_zenodo}, \citet{GWTC-3_zenodo}) provides us with a number of merger detections from a population of \acp{DCO}. 
+ For each LVK event we know, among other things, the chirp mass of the merging binary and the merger redshift, up to a measurement uncertainty.
 We get the data from the \ogc.
-Plots of the event $\Mc,z$ median estimates and $X-\sigma$ uncertainty can be found in Figure~\ref{fig:ogc4_events} in the Appendix~\ref{}. 
+Plots of the event $\Mc,z$ median estimates and $X-\sigma$ uncertainty can be found in Figure~\ref{fig:ogc4_events}. 
 Filtering the events based on the OGC definition of $p(bbh)\geq0.95$ and ensuring that the median value of the $p(\Mc,z|d_i)$ lies within $\Mc\in[4,45]$, $z\in[0,1]$, we get XX events. 
-These are colored green in Fig~\ref{fig:ogc4_events}.
+Less confident events could be included \citep[e.g.][]{Farr_2015}, they will typically contribute little information due to greater measurement uncertainties.
+These events that we use in our analysis are colored green in Fig~\ref{fig:ogc4_events}.
 
-Using Equation~\ref{}, we obtain the weights for each posterior. 
+\begin{figure}[ht!]
+    \script{plot_ogc4_events.py}
+    \begin{centering}
+        \includegraphics[width=0.8\columnwidth]{figures/ogc4_events.pdf}
+        \caption{
+            The events and uncertainty as predicted by Ogc4
+        }
+        \label{fig:ogc4_events}
+    \end{centering}
+\end{figure}
+
+The priors for the events are in $\pi(\Mc,V_c)$, however, we need $\pi(\Mc,z)$. To transform the priors, we use the following equation
+\begin{equation}
+    \pi(\Mc,z) = \pi(\Mc, V_c(z)) \frac{d V_c(z)}{dz}\, .
+\end{equation}
+We use the definition of $d V_c(z)/dz$ from \citep{Hogg:1999:arXiv}, given by 
+\begin{equation}
+dV_{\rm C}= D_{\rm H}\,\frac{(1+z)^2\,D_{\rm A}^2}{E(z)}\,d\Omega\,dz
+\end{equation}
+
+
+Using Equation~\ref{eq:weights}, we obtain the weights for each posterior. 
 A plot of each event's weights summed together is shown in Figure~\ref{fig:ogc4_weights}.
 
 
@@ -616,10 +644,9 @@ A plot of each event's weights summed together is shown in Figure~\ref{fig:ogc4_
     \end{centering}
 \end{figure}
 
-Describe OGC4 data
 
-\subsection{Results}
-Describe LVK results, compare with Riley et al.
+\paragraph{Posteriors}
+pass
 
 
 %--------------------------------------------------------
@@ -677,30 +704,6 @@ Discussions with Renate, Matt, Kate.
 \bibliography{bib}
 
 \appendix
-
-\section{Interfacing with OGC4}
-
-The OGC events are shown in Figure~\ref{fig:ogc4_events}.
-
-\begin{figure}[ht!]
-    \script{plot_ogc4_events.py}
-    \begin{centering}
-        \includegraphics[width=0.35\columnwidth]{figures/ogc4_events.pdf}
-        \caption{
-            The events and uncertainty as predicted by Ogc4
-        }
-        \label{fig:ogc4_events}
-    \end{centering}
-\end{figure}
-
-The priors for the events are in $\pi(\Mc,V_c)$, however, we need $\pi(\Mc,z)$. To transform the priors, we use the following equation
-\begin{equation}
-    \pi(\Mc,z) = \pi(\Mc, V_c(z)) \frac{d V_c(z)}{dz}\, .
-\end{equation}
-We use the definition of $d V_c(z)/dz$ from \citep{Hogg:1999:arXiv}, given by 
-\begin{equation}
-dV_{\rm C}= D_{\rm H}\,\frac{(1+z)^2\,D_{\rm A}^2}{E(z)}\,d\Omega\,dz
-\end{equation}
 
 
 
@@ -801,6 +804,11 @@ Binary population synthesis code                                      & COMPAS &
 }
 \end{table*}
 
+
+
+\section{Sampler settings}\label{sec:appendix_sampler_settubgs}
+Here we describe the sampler settings we use. 
+We also plot some trace plots.
 
 
 \end{document}
