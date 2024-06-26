@@ -96,4 +96,4 @@ if __name__ == '__main__':
     # turn off all minor ticks
     for ax in fig.axes:
         ax.tick_params(which='minor', length=0)
-    fig.savefig(paths.figures / "simulation_posteriors.pdf", bbox_inches="tight", dpi=300)
+    fig.savefig(paths.figures / "simulation_posterior.pdf", bbox_inches="tight", dpi=300)
