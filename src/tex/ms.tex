@@ -161,7 +161,7 @@
 
 
 
-%%%%
+%%%% 
 
 \definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
 \newcommand{\jeff}[1]{\textbf{\textcolor{orange-red}{#1}}}
@@ -183,7 +183,6 @@
 \affiliation{UoA}
 \affiliation{NZ Gravity}
 \affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
-
 
 \author{Jeff Riley}
 \affiliation{School of Physics and Astronomy, Monash University, Clayton, Victoria 3800, Australia}
@@ -340,7 +339,7 @@ The probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ is constructed 
 
 
  In practice, we may not know the values $z_i, \Mc_{i}$ perfectly,  but may only have $K$ samples from a posterior $p(z_i,\Mc_{i}|D_i)$.
- Hence the probability $\Le(z=z_i,\Mc=\Mc_{i}|\lambda)$ for the  $i^{th}$ event in Equation~\ref{eq:methods_likelihood_term2} can be re-written as
+ Hence the probability $\Le(z=z_i,\Mc=\Mc_{i}|\lambda)$ for the  $i^{th}$ event in Equation~\ref{eq:methods_likelihood_term2} can be re-written as 
 
 \begin{equation}
   \Le(D_i|\lambda) = \frac{1}{K} \sum_{k=1}^K \frac{\pg(z=z_i^k, \Mc=\Mc_{i}^k|\lambda)}{\pi(z_i^k,\Mc_i^k)},
@@ -363,7 +362,7 @@ Then the probability $\Le(D_i|\lambda)$ can be evaluated as a sum over bins,
 \end{equation}
 
 
-Unfortunatly, \Lmain is an expensive function, making it hard to sample with.
+Unfortunatly, \Lmain is an expensive function, making it hard to sample with. 
 In the next section, we discuss a surrogate model for \Lmain that is cheaper to sample with.
 
 \subsection{GP surrogate using Bayesian optimisation }
@@ -372,9 +371,9 @@ Given  $M$ ``observations" of \Lmain, $\{\mathcal{L}(\lambda_0), ..., \mathcal{L
     \Lsurr &= \mathcal{GP}( \mathcal{L}(\lambda) | \mathcal{L}(\lambda_0), ..., \mathcal{L}(\lambda_M))\, \nonumber \\
     &= \mathcal{GP}(\mu(\lambda), \Sigma(\lambda))
 \end{align}
-where the conditional probability distribution is given by a Guassian process $\mathcal{GP}$, of mean $\mu$ and covariane $\Sigma$.
+where the conditional probability distribution is given by a Guassian process $\mathcal{GP}$, of mean $\mu$ and covariane $\Sigma$. 
 A Gaussian process, provides a Bayesian posterior probability
-distribution that describes potential values for $\Lmain$ at a candidate point $\lambda$.
+distribution that describes potential values for $\Lmain$ at a candidate point $\lambda$. 
 Each time we observe a new $\mathcal{L}(\lambda')$, this posterior distribution is updated.
 
 \begin{algorithm}
@@ -399,27 +398,27 @@ evaluation of the objective function at a new point $\lambda'$, based on the cur
 
 Bayesian optimisation modeling using Gaussian processes is discussed in detail in~\cite{}.
 
-\tikzstyle{startstop} = [rectangle, rounded corners,
-minimum width=3cm,
+\tikzstyle{startstop} = [rectangle, rounded corners, 
+minimum width=3cm, 
 minimum height=1cm,
-text centered,
-draw=black,
+text centered, 
+draw=black, 
 fill=red!30]
 
 
-\tikzstyle{process} = [rectangle,
-minimum width=3cm,
-minimum height=1cm,
-text centered,
-text width=3cm,
-draw=black,
+\tikzstyle{process} = [rectangle, 
+minimum width=3cm, 
+minimum height=1cm, 
+text centered, 
+text width=3cm, 
+draw=black, 
 fill=orange!30]
 
-\tikzstyle{decision} = [diamond,
-minimum width=3cm,
-minimum height=1cm,
-text centered,
-draw=black,
+\tikzstyle{decision} = [diamond, 
+minimum width=3cm, 
+minimum height=1cm, 
+text centered, 
+draw=black, 
 fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 
@@ -428,7 +427,7 @@ fill=green!30]
 \node (start) [startstop] {Sample $\pi(\lambda)$};
 \node (compute) [process, below of=start] {Compute $\Lmain$};
 \node (train) [process, below of=compute] {Train \Lsurr};
-\node (sample) [process, below of=train] {Sample
+\node (sample) [process, below of=train] {Sample 
 $p(\lambda|\mathcal{D})\sim\Lsurr\pi(\lambda)$};
 \node (check) [decision, below of=sample, yshift=-0.5cm] {\mathcal{O}(\lambda) > N?};
 
@@ -452,7 +451,7 @@ An acquisition function is a function that maps the posterior predictive mean an
 
 In general, we will write the acquisition function as $\alpha(\mu,\sigma)$, where $\mu$ is the posterior predictive mean and $\sigma$ is the posterior predictive variance.
 
-Each criterion performs a trade-off between exploration i.e. investigating regions where the variance is large and exploitation i.e. investigating regions where the prediction is minimized.
+Each criterion performs a trade-off between exploration i.e. investigating regions where the variance is large and exploitation i.e. investigating regions where the prediction is minimized. 
 
 \paragraph{Uncertainty-based exploration (UE)}
 
@@ -464,7 +463,7 @@ $$
 
 and helps to explore the function space in regions of high uncertainty.
 
-One of the most popular BO algorithms is the Efficient Global Optimization (EGO) \cite{jones1998efficient}.
+One of the most popular BO algorithms is the Efficient Global Optimization (EGO) \cite{jones1998efficient}. 
 It uses GP as surrogate model and the Expected Improvement as the infill sampling criterion. This work is focused on BO algorithms using GP and its variants as surrogate models.
 
 
@@ -481,10 +480,10 @@ where $u^i = \frac{\mu^i - \mu_{\rm{best}}}{\sigma^i}$ and $\mu_{\rm{best}}$ is 
 
 where $\mathcal{N}_{\rm PDF}$ denotes the Probability Density function (PDF) of the univariate Gaussian probability distribution.
 
-While we would like to choose $x$ so that this improvement is large, $f(x)$ is unknown until after the evaluation.  What we can do, however,
+While we would like to choose $x$ so that this improvement is large, $f(x)$ is unknown until after the evaluation.  What we can do, however, 
 is to take the expected value of this improvement and choose $x$ to maximize it.
 
-The Expected Improvement (EI)takes into account the improvement induced by a candidate that is defined as: $I(\textbf{x})=\text{max}\{0,y_{\text{min}}-f(\textbf{x})\}$.
+The Expected Improvement (EI)takes into account the improvement induced by a candidate that is defined as: $I(\textbf{x})=\text{max}\{0,y_{\text{min}}-f(\textbf{x})\}$. 
 
 
 
@@ -517,10 +516,10 @@ To validate our method, following Section 2.5 of \citep{}, we sample 100 $\lambd
 We build surrogate likelihoods for each dataset, and use them to approximate $p(\lambda|\mathcal{D})$.
 Figure~\ref{fig:simulation_posterior} displays the $p(\lambda|\mathcal{D})$ for one mock population.
 The gray ``reference'' posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}$ tranined with 950 points.
-The blue posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}_V$ trained with 50 points, while the purple posterior's surrogate is built with 325 points.
-The blue posterior has a $D_{KL}>10$ when compared with the gray reference posterior.
-The purple  posterior has a $D_{KL}<1$ when compared with the gray reference posterior, indicating that the two posteriors are similar.
-The orange line marks the true $\lambda$ used to generate the dataset.
+The blue posterior is obtained using a surrogate likelihood $\mathcal{L}^{\star}_V$ trained with 50 points, while the purple posterior's surrogate is built with 325 points. 
+The blue posterior has a $D_{KL}>10$ when compared with the gray reference posterior. 
+The purple  posterior has a $D_{KL}<1$ when compared with the gray reference posterior, indicating that the two posteriors are similar. 
+The orange line marks the true $\lambda$ used to generate the dataset. 
 \begin{figure}[ht!]
     \script{plot_simulation_posterior.py}
     \begin{centering}
@@ -546,7 +545,7 @@ The PP-plot in Figure~\ref{fig:pp_plot} shows that the true value lies withing t
 \end{figure}
 
 
-Finally, Figure~\ref{} shows the JS diveregence
+Finally, Figure~\ref{} shows the JS diveregence 
 
 
 
@@ -611,10 +610,10 @@ Describe LVK results, compare with Riley et al.
 %--------------------------------------------------------
 \section{Discussion}
 
-We do not
+We do not 
 \begin{itemize}
-    \item Do hyper-parameter optimisation for the GP (kernal choices, kernel settings)
-    \item Do hyper-parameter optimisation for the acquisition function
+    \item Do hyper-parameter optimisation for the GP (kernal choices, kernel settings) 
+    \item Do hyper-parameter optimisation for the acquisition function 
     \item Explore range of acquisition functions
 \end{itemize}
 
