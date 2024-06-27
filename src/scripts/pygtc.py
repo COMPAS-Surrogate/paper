@@ -30,7 +30,7 @@ REF_COLOR = 'lightgray'
 def plotGTC(chains, **kwargs):
     r"""Make a great looking Giant Triangle Confusogram (GTC) with one line of
     code! A GTC is like a triangle (or corner) plot, but you get to put as
-    many sets of data, and overlay as many truths as you like. That's what can
+    many sets of data, and overlay as many reference_param as you like. That's what can
     make it so *confusing*!
 
     Parameters
@@ -66,23 +66,23 @@ def plotGTC(chains, **kwargs):
     truths : list-like[nDims] or [[nDims], ...]
         A list of parameter values, one for each parameter in `chains` to
         highlight in the GTC parameter space, or a list of lists of values to
-        highlight in the parameter space. For each set of truths passed to
-        `truths`, there must be a value corresponding to every dimension in
+        highlight in the parameter space. For each set of reference_param passed to
+        `reference_param`, there must be a value corresponding to every dimension in
         `chains`, although any value may be ``None``. Default is ``None``.
 
     truthLabels : list-like[nTruths]
-        A list of labels, one for each list passed to truths. truthLabels
+        A list of labels, one for each list passed to reference_param. truthLabels
         supports LaTex commands enclosed in $..$. Additionally, you can pass
         ``None`` as a label. Default is ``None``.
 
     truthColors : list-like[nTruths]
-        User-defined colors for the truth lines, must be one per set of truths
-        passed to `truths`. Default color is gray ``#4d4d4d`` for up to three
+        User-defined colors for the reference_param lines, must be one per set of reference_param
+        passed to `reference_param`. Default color is gray ``#4d4d4d`` for up to three
         lines.
 
     truthLineStyles : list-like[nTruths]
-        User-defined line styles for the truth lines, must be one per set of
-        truths passed to `truths`. Default line styles are
+        User-defined line styles for the reference_param lines, must be one per set of
+        reference_param passed to `reference_param`. Default line styles are
         ``['--', ':', 'dashdot']``.
 
     priors : list of tuples [(mu1, sigma1), ...]
@@ -132,7 +132,7 @@ def plotGTC(chains, **kwargs):
     legendMarker : string
         Options are ``'All'``, ``'None'``, ``'Auto'``. ``'All'`` and ``'None'``
         force-show or force-hide all label markers. ``'Auto'`` shows label
-        markers if two or more truths are plotted.
+        markers if two or more reference_param are plotted.
 
     paramRanges : list of tuples [nDim]
         Set the boundaries of each parameter range. Must provide a tuple for
@@ -341,22 +341,22 @@ def plotGTC(chains, **kwargs):
     # Highlight a point (or several) in parameter space by lines
     truthColors = kwargs.pop('truthColors', truthsDefaultColors)
     truthLineStyles = kwargs.pop('truthLineStyles', truthsDefaultLS)
-    truths = kwargs.pop('truths', None)
+    truths = kwargs.pop('reference_param', None)
     if truths is not None:
         # Convert to list if needed
         if len(np.shape(truths)) == 1:
             truths = [truths]
         truths = np.array(truths)
         assert np.shape(truths)[0] <= len(truthColors), \
-            ("More truths than available colors." +
+            ("More reference_param than available colors." +
              "Set colors with truthColors = [colors...]")
         assert np.shape(truths)[0] <= len(truthLineStyles), \
-            ("More truths than available line styles." +
+            ("More reference_param than available line styles." +
              "Set line styles with truthLineStyles = [ls...]")
         assert np.shape(truths)[1] == nDim, \
-            "Each list of truths must match number of parameters"
+            "Each list of reference_param must match number of parameters"
 
-    # Labels for the different truth lines
+    # Labels for the different reference_param lines
     truthLabels = kwargs.pop('truthLabels', None)
     if truthLabels is not None:
         # Convert to list if only one label
@@ -366,7 +366,7 @@ def plotGTC(chains, **kwargs):
         assert all(__isstr(s) for s in truthLabels), \
             "truthLabels must be list of strings"
         assert len(truthLabels) == len(truths), \
-            "truthLabels mismatch with number of truths"
+            "truthLabels mismatch with number of reference_param"
 
     # Show Gaussian PDF on 1d plots (to show Gaussian priors)
     priors = kwargs.pop('priors', None)
@@ -577,11 +577,11 @@ def plotGTC(chains, **kwargs):
                         ax = fig.add_subplot(nDim-1, nDim-1,
                                              ((i-1)*(nDim-1))+j+1)
 
-                    # Draw contours and truths
+                    # Draw contours and reference_param
                     # Extract 2d chains
                     chainsForPlot2D = [[chains[k][:, j], chains[k][:, i]]
                                        for k in range(nChains)]
-                    # Extract 2d truths
+                    # Extract 2d reference_param
                     truthsForPlot2D = None
                     if truths is not None:
                         truthsForPlot2D = [[truths[k, i], truths[k, j]]
@@ -755,10 +755,10 @@ def plotGTC(chains, **kwargs):
             # Create subplot
             ax = fig.add_subplot(nDim, nDim, (i*nDim)+i+1)
 
-            # Plot histograms, truths, Gaussians
+            # Plot histograms, reference_param, Gaussians
             # Extract 1d chains
             chainsForPlot1D = [chains[k][:, i] for k in range(nChains)]
-            # Extract 1d truths
+            # Extract 1d reference_param
             truthsForPlot1D = None
             if truths is not None:
                 truthsForPlot1D = [truths[k, i] for k in range(len(truths))]
@@ -891,9 +891,9 @@ def plotGTC(chains, **kwargs):
                 ax.plot(0, 0, color=colors[k][0], lw=4, label=chainLabels[k])
                 labelColors.append(colors[k][0])
 
-        # Label the truth lines
+        # Label the reference_param lines
         if truthLabels is not None:
-            # Label for each truth
+            # Label for each reference_param
             for k in range(len(truthLabels)):
                 ax.plot(0, 0, lw=1, color=truthColors[k], label=truthLabels[k],
                         ls=truthLineStyles[k])
@@ -974,13 +974,13 @@ def __plot1d(ax, nChains, chains1d, weights, nBins, smoothingKernel,
         List of `nChains` tuples. Each tuple must have at least two colors.
 
     truths1d : list-like
-        List of truths to overplot on the histogram.
+        List of reference_param to overplot on the histogram.
 
     truthColors : list-like
-        One color for each truth.
+        One color for each reference_param.
 
     truthLineStyles : list-like
-        One matplotlib linestyle specifier per truth.
+        One matplotlib linestyle specifier per reference_param.
 
     prior1d : tuple
         Normal distribution paramters (mu, sigma)
@@ -1085,10 +1085,10 @@ def __plot2d(ax, nChains, chains2d, weights, nBins, smoothingKernel,
         A list of nChains tuples of the form: [(truth1_x, truth1_y), etc...].
 
     truthColors : list-like
-        A list of colors for the truths.
+        A list of colors for the reference_param.
 
     truthLineStyles : list-like
-        A list of matplotlib linestyle descriptors, one for each truth.
+        A list of matplotlib linestyle descriptors, one for each reference_param.
 
     plotDensity : bool
         Whether to show points density in addition to contours.

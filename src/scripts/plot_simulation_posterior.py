@@ -64,7 +64,7 @@ class PosteriorDatasets:
     def from_npz(cls, fname):
         data = np.load(fname)
         posteriors = [p for p in data["posteriors"]]
-        return cls(posteriors, data["truths"], data["params"], data["labels"])
+        return cls(posteriors, data["reference_param"], data["params"], data["labels"])
 
     @classmethod
     def from_cache(cls):
@@ -74,7 +74,7 @@ class PosteriorDatasets:
         return {
             "chains": self.chains[0:2],
             "chainLabels": self.chainLabels[0:2],
-            "truths": self.truths,
+            "reference_param": self.truths,
             "paramNames": self.paramNames,
             "paramRanges": self.paramRanges,
             "reference": self.chains[2],
