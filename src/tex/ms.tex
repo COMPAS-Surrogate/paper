@@ -20,157 +20,13 @@
 \usepackage{import}
 \usepackage{mathtools}
 \usepackage{showyourwork}
-
-
-\usepackage{float}
-\makeatletter
-\let\newfloat\newfloat@ltx
-\makeatother
-
-\usepackage{algorithm}
-\usepackage{algorithmic}
-
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{float}
+\usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{algpseudocode}
 
-\setlength{\marginparwidth}{1.5cm}
-
-
-
-% table column types
-\usepackage{array}
-\newcolumntype{E}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{F}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{G}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-
-% abbreviations/acronyms
-\acrodef{ANN}{artificial neural network}
-\acrodef{DCO}{double compact object}
-\acrodef{MCMC}{Markov Chain Monte Carlo}
-\acrodef{MSSFR}{metallicity-specific star formation rate}
-\acrodef{LVK}{LIGO--VIRGO--KAGRA}
-
-
-
-\newcommand\COMPAS{{\sc{COMPAS}}\xspace}
-\newcommand*\diff{\mathop{}\!\mathrm{d}}
-\newcommand{\MSFR}{\ensuremath{{M}_{\rm{SFR}}}\xspace}
-\newcommand{\ts}{\ensuremath{{t}_{\rm{s}}}\xspace}
-\newcommand{\tsup}{\textsuperscript}
-\newcommand{\Vc}{\ensuremath{{V}_{\rm{c}}}\xspace}
-
-\newcommand{\monei}{\ensuremath{m_{1,\rm{i}}}\xspace}
-\newcommand{\mtwoi}{\ensuremath{m_{2,\rm{i}}}\xspace}
-\newcommand{\monef}{\ensuremath{m_{1,\rm{f}}}\xspace}
-\newcommand{\mtwof}{\ensuremath{m_{2,\rm{f}}}\xspace}
-\newcommand{\ai}{\ensuremath{a_{\rm{i}}}\xspace}
-\newcommand{\qi}{\ensuremath{q_{\rm{i}}}\xspace}
-\newcommand{\Zi}{\ensuremath{Z_{\rm{i}}}\xspace}
-\newcommand{\vk}{\ensuremath{v_{\rm{k}}}\xspace}
-\newcommand{\thetak}{\ensuremath{{\theta}_{\rm{k}}}\xspace}
-\newcommand{\phik}{\ensuremath{{\phi}_{\rm{k}}}\xspace}
-\newcommand{\ei}{\ensuremath{{e}_{\rm{i}}}\xspace}
-
-\newcommand{\Msun}{\ensuremath{\,\rm{M}_{\odot}}\xspace}
-\newcommand{\Zsun}{\ensuremath{\,\rm{Z}_{\odot}}\xspace}
-\newcommand{\kms}{\ensuremath{\,\rm{km}\,\rm{s}^{-1}}\xspace}
-\newcommand{\AU}{\ensuremath{\,\mathrm{AU}}\xspace}
-\newcommand{\Mc}{\ensuremath{\mathcal{M}}\xspace}
-
-\newcommand{\Lmain}{\ensuremath{\mathcal{L}(\mathcal{D}|\lambda)}\xspace}
-\newcommand{\Lp}{\ensuremath{\mathcal{L}_{\rm p}}\xspace}
-\newcommand{\Le}{\ensuremath{\mathcal{L}_{\rm event}}\xspace}
-\newcommand{\pg}{\ensuremath{p_{\rm grid}}\xspace}
-\newcommand{\Lsurr}{\ensuremath{\mathcal{L}^{\star}(\lambda)}\xspace}
-
-
-%%%%%%%%%%%%%%% SYMBOLS
-
-% Projects:
-\newcommand{\project}[1]{\textsf{#1}}
-
-\newcommand{\python}{\project{Python}}
-\newcommand{\jupyter}{\project{Jupyter}}
-
-\newcommand{\exoplanet}{\project{exoplanet}}
-\newcommand{\lightkurve}{\project{lightkurve}}
-\newcommand{\starry}{\project{starry}}
-\newcommand{\pymc}{\project{PyMC3}}
-\newcommand{\pymcextra}{\project{pymc3-ext}}
-\newcommand{\celerite}{\project{celerite}}
-\newcommand{\astropy}{\project{astropy}}
-\newcommand{\scipy}{\project{scipy}}
-\newcommand{\jupytext}{\project{jupytext}}
-\newcommand{\sphinx}{\project{sphinx}}
-\newcommand{\jupyterbook}{\project{Jupyter-book}}
-\newcommand{\arviz}{\project{ArviZ}}
-\newcommand{\nbconvert}{\project{nbconvert}}
-\newcommand{\numpy}{\project{numpy}}
-\newcommand{\pandas}{\project{pandas}}
-\newcommand{\matplotlib}{\project{matplotlib}}
-\newcommand{\corner}{\project{corner}}
-\newcommand{\emcee}{\project{emcee}}
-\newcommand{\trieste}{\project{trieste}}
-\newcommand{\tensorflow}{\project{TensorFlow}}
-\newcommand{\pycbc}{\project{PyCBC}}
-
-
-
-\newcommand{\LVK}{\project{LVK}}
-\newcommand{\mast}{\project{MAST}}
-\newcommand{\exofop}{\project{ExoFOP}}
-\newcommand{\tessAtlas}{\project{TESS Atlas}}
-\newcommand{\ogc}{\project{4-OGC}}
-
-% math
-\newcommand{\T}{\ensuremath{\mathrm{T}}}
-\newcommand{\dd}{\ensuremath{ \mathrm{d}}}
-% \newcommand{\unit}[1]{{\ensuremath{ \mathrm{#1}}}}
-\newcommand{\bvec}[1]{{\ensuremath{\boldsymbol{#1}}}}
-
-
-\DeclareMathOperator{\invG}{Inv-\mathnormal{\Gamma}}
-\DeclareMathOperator{\N}{\mathcal{N}}
-\DeclareMathOperator{\U}{\mathcal{U}}
-\DeclareMathOperator{\Un}{\mathcal{U}}
-\DeclareMathOperator{\Par}{\mathcal{P}ar}
-\DeclareMathOperator{\tmin}{\mathnormal{t_{\rm min}}}
-\DeclareMathOperator{\tmax}{\mathnormal{t_{\rm max}}}
-
-
-
-
-
-%% affiliation shortcuts
-\newcommand{\SPA}{School of Physics and Astronomy, Monash University, Clayton VIC 3800, Australia}
-\newcommand{\OzGravMonash}{OzGrav: The ARC Centre of Excellence for Gravitational Wave Discovery, Clayton VIC 3800, Australia}
-\newcommand{\AMNH}{Department of Astrophysics, American Museum of Natural History, New York, NY 10024, USA}
-\newcommand{\CCA}{Center for Computational Astrophysics, Flatiron Institute, New York, NY 10010, USA}
-\newcommand{\CUNY}{Graduate Center, City University of New York, 365 5th Avenue, New York, NY 10016, USA}
-\newcommand{\BMCC}{Department of Science, BMCC, City University of New York, New York, NY 10007, USA}
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-%%%% 
-
-\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
-\newcommand{\jeff}[1]{\textbf{\textcolor{orange-red}{#1}}}
-\newcommand{\ilya}[1]{\textbf{\textcolor{magenta}{#1}}}
-\newcommand{\avi}[1]{\textbf{\textcolor{cyan}{#1}}}
-\newcommand{\chayan}[1]{\textbf{\textcolor{green}{#1}}}
-\newcommand{\resp}[1]{#1}
-
-
+\input{my-style}
 
 
 % Begin!
@@ -178,21 +34,7 @@
 
 \title{\resp{COMPAS Star-formation LnL GP surrogate}}
 
-% Authors
-\author{Avi Vajpeyi}
-\affiliation{UoA}
-\affiliation{NZ Gravity}
-\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
-
-\author{Jeff Riley}
-\affiliation{School of Physics and Astronomy, Monash University, Clayton, Victoria 3800, Australia}
-\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
-\author{Ilya Mandel}
-\affiliation{School of Physics and Astronomy, Monash University, Clayton, Victoria 3800, Australia}
-\affiliation{ARC Centre of Excellence for Gravitational Wave Discovery -- OzGrav, Australia}
-\author{Chayan Chatterjee}
-\affiliation{}
-
+\input{authors}
 \correspondingauthor{Avi Vajpeyi}
 \email{avi.vajpeyi@auckland.ac.nz}
 
@@ -209,50 +51,52 @@
 
 \section{Introduction}
 \label{sec:intro}
-Over the past decade, improvements in detector sensitivity have led to an exponential increase in the rate of GW detections.
-With next-generation detectors on the horizon (such as CE, ET, and LISA), the number of GW detections will increase even more.
-The most recent catalogue of GW contains
-XX events, the majority of them being Binary Black Holes
-(BBHs), with XX public alerts for GW that have yet to be confirmed as astrophysiocal events.
-As more GW events are observed, more features
-in the distribution of GW events await to be discovered.
-One of the most common ways to understand the observed GW population is through phenomenological modelling.
-However, as the size of the catalogues increases, so does the catalogue complexity, making it challenging to develop interpretable, parameterisable phenomenological models, flexible enough to explain the features in the catalogue.
 
-Alternatively, we can consider using forward models to simulate catalogues of GW events and compare the simulations to observed catalogues.
-The forward modelling approach would provide astronomers with constraints on easy-to-interpret physical parameters that describe the initial conditions of the population of merging binaries, such as distributions describing the initial stellar mass, metallicity, and binary separation.
-These parameters also govern simulated physical processes like wind mass loss, supernova characteristics, and binary interactions such as mass transfer and common envelope efficiency.
-However, the generation of synthetic catalogues from the various rapid population sysnthesis software packages can be expensive, making brute force methods that explore all possible parameter values expensive (for example, see  Broekgaarden et al. (2022)).
-Another alternative, as proposed by Riley et al. (2023) involves building surrogate tools to bridge the computational complexities of simulating a state space large enough
-to allow us to infer astrophysical constraints from the observed catalogs.
+Over the past decade, improvements in detector sensitivity have led to a rapid increase in the rate of gravitational wave (GW) detections~\citep{GWTC1, GWTC2, GWTC3}. 
+With next-generation detectors on the horizon, such as Cosmic Explorer (CE), Einstein Telescope (ET), and the Laser Interferometer Space Antenna (LISA), the number of GW detections is expected to increase even more dramatically~\citep{ET_design_report, ET_science_case, CE_horizon_study, LISA_science_case, LISA_red_book}. 
+The most recent catalog of GW events, GWTC-3, contains 90 confident detections, the majority being binary black holes (BBHs), with additional public alerts for GW events yet to be confirmed as astrophysical~\citep{GWTC3, GraceDB2024}. 
+As more GW events are observed, new features in the distribution of these events await discovery, offering unprecedented insights into astrophysical populations and processes.
+A method to infer properties about the populations of GW events, while accouting for selection bias and uncertain source parameters, is using hierarchical Bayesian inference~\citep{Mandel:2019:MNRAS, Vitale:2022:hgwa}.
 
-Riley et al. (2023) generated a small number of ``training" states using a
-targeted selection of initial conditions and evolutionary
-parameters.
-The training states were then used to teach an interpolant how to
-map initial conditions and evolutionary parameters to
-the final state, thus avoiding the computational time
-of calculating the intermediate steps.
+In the inference process, a common approach to understanding the observed GW population is through phenomenological modeling~\citep{Talbot:2017:PhRvD, Talbot:2018:ApJ, gwpopulation, Wysocki:2019:PhRvD, Fishbach:2018:ApJL, GWTC2PopInf, GWTC3PopInf, Mastrogiovanni:2023:arXiv}. 
+However, as the size and complexity of GW catalogs increase, developing interpretable and parameterizable phenomenological models that are flexible enough to explain the emerging features becomes increasingly challenging~\citep{Golomb:2023:PhRvD}.
 
-In their work, they explored four parameters governing the cosmic metallicity-specific star formation rate (MSSFR) in the model of Neijssel et al. (2019).
+Some alternative approaches involve using non-parameteric models~\citep{Li:2021:ApJ, Rinaldi:2024:A&A, Heinzel:2024:arXiv, Callister:2024:PhRvX}, and forward modelling to simulate catalogs of GW events and compare these simulated catalogs to observed catalogs~\citep{Wong:2023:ApJ, Riley:2023:ApJ}. 
+This forward modeling approach provides astronomers with constraints on interpretable physical parameters that describe the initial conditions of progenitor stellar populations. 
+These parameters include distributions of initial stellar mass, metallicity, and binary separation, as well as those governing simulated physical processes such as wind mass loss, supernova characteristics, and binary interactions such as mass transfer and common envelope efficiency.
+However, generating synthetic catalogs from various rapid population synthesis software packages, e.g., \COMPAS~\citep{Compas:2022:JOSS}, \BPASS~\citep{BPASS:2017:PASA}, \COSMIC~\citep{COSMIC:2020:ApJ}, \STARTRACK~\citep{StarTrack:2008:ApJS}, and \POSYDEN~\citep{POSYDON:2023:ApJS}, can be computationally expensive, making brute-force methods that explore all possible parameter values impractical. 
+To address this challenge, \citet{Riley:2023:ApJ} proposed building surrogate tools to bridge the computational complexities of simulating a state space large enough to allow inference of astrophysical constraints from observed catalogs.
 
-We build upon \citep{Riley:2023:ApJ}'s work, and
+\citet{Riley:2023:ApJ} generated a set of ``training'' merging binary populations by sampling from a four parameters that govern the metallicity-specific star formation rate (MSSFR), \MSSFR, in the model proposed by \citet{Neijssel_2019}. 
+These populations were used to construct neural network interpolants that map MSSFR parameters to merger rates, thereby circumventing the computational burden of evolving the binaries from initial conditions.
+The interpolants were then employed within a Markov chain Monte Carlo (MCMC) framework to approximate the posterior distribution of MSSFR parameters, using both simulated data and observations from GWTC-3.
 
-The remainder of this paper is organised as follows.
-Section 2 presents a description of the tool we construct
-for this proof-of-concept study, and the method used
-to train the tool.
-We present and discuss our results in Section 3.
-We provide some concluding remarks in  Section 4
+Our study extends the work of \citet{Riley:2023:ApJ} by implementing Gaussian processes (GPs) to map MSSFR parameters with an observed dataset to a likelihood function. 
+This likelihood is then utilized in an MCMC to approximate the MSSFR parameter posteriors given the observed dataset. 
+Crucially, we aim to enhance the efficiency of \citet{Riley:2023:ApJ}'s approach by reducing the size of the training set required for the GP. 
+To achieve this, we use an ``active-learning'' approach to train the GP, where we iteratively employ Bayesian hyperoptimization for acquiring MSSFR parameters, based on the GP's performance.
+This active learning approach is expected to be particularly advantageous in more complex scenarios, where generating each population is computationally expensive, potentially offering a more scalable and resource-efficient method for exploring high-dimensional parameter spaces in astrophysical population synthesis.
 
+The remainder of this paper is organized as follows. 
+Section~\ref{sec:methods} presents a description of the active learning methodology we construct for this proof-of-concept study along with the Bayesian framework used. 
+We apply our method to simulated datasets and the GWTC-3 in Section~\ref{sec:results}. Finally, we provide concluding remarks and discuss future directions in Section~\ref{sec:discussion}.
 
 
 %--------------------------------------------------------
-\section{Method}
+\section{Method}\label{sec:methods}
 
 
-\subsection{MSSFR parameters and $\Mc-z$ rates}\label{sec:method_parameters}
-Following \citep{Riley:2023:ApJ}, we vary four free parameters for the calculation of the \ac{MSSFR} in the phenomenological model of \citet{Neijssel_2019}. In this model, the \ac{MSSFR} is split into two parts, the star formation rate (SFR) and the metallicity distribution:
+\subsection{Forward model}\label{sec:method_parameters}
+Following \citet{Riley:2023:ApJ}, we use \COMPAS to simulate binaries populations and vary four free parameters for the calculation of the metallicity-specific star formation rate (MSSFR) in the phenomenological model of \citet{Neijssel_2019}. 
+In this model, the MSSFR is split into two parts, the star formation rate (SFR) and the metallicity distribution.
+
+
+We assume the analytical star formation rate, proposed by \citet{Madau_2014}, 
+\begin{equation}
+  \frac{\diff^2 M_{\rm SFR}}{\diff t\,dV_c}(z | a,b,c,d) =
+  \frac{a\ (1 + z)^b}{1 + \big(\frac{1 + z}{c}\big)^d}\,\bigg[ \frac{\mathrm{M}_\odot}{\mathrm{yr}\ \mathrm{Mpc}^{3}}\bigg]
+  \ ,
+\end{equation}
 
 
 \begin{equation}
@@ -265,11 +109,7 @@ Following \citep{Riley:2023:ApJ}, we vary four free parameters for the calculati
 \noindent
 where the SFR is given by:
 
-\begin{equation}
-  \frac{\diff^2 \MSFR}{\diff \ts \diff \Vc} =
-  a\frac{(1 + z)^b}{1 + (\frac{(1 + z)}{c})^d}\,
-  \mathrm{M}_\odot\ \mathrm{yr}^{-1}\ \mathrm{Mpc}^{-3},
-\end{equation}
+
 
 \bigskip\noindent
 and we use a log-normal distribution in metallicity at each redshift (cf.~the skewed log-normal model proposed by \citet{vanSon_2022}):
@@ -299,7 +139,7 @@ with mean metallicity parametrised as in \citet{Langer_2006}:
 We vary SFR parameters $a$ and $d$, and the metallicity distribution parameters $\alpha$ and $\sigma$. 
 We fix $b=2.77$, $c=2.9$, and $Z_0=0.035$.  
 
-Varying these parameters in \COMPAS results in different merger rate distributions (see \citep{Riley:2023:ApJ, Neijssel_2019}). 
+Varying these parameters in \COMPAS results in different merger rate distributions~\citep{Riley:2023:ApJ, Neijssel_2019}. 
 
 
 Plots of the SFR, metallicity distributions and resultant merger rate distributions for different $\Mc$ and $z$ are shown in Figure~\ref{fig:mcz_grid} for three different choices of parameters.
@@ -319,36 +159,40 @@ Plots of the SFR, metallicity distributions and resultant merger rate distributi
 
 
 \subsection{Bayesian Model}
+
+% The likelihood of obtaining \Nobs observations from a population of events over on observing time \Tobs, each
+% described by redshift $z$ and chirp-mass \Mc, in a data collection  $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$, assuming a
+% constant rate  selection biases is given by (see
+% Mandel et al. (2019); Vitale et al. (2022)
+
+
+
 We use the Bayesian model described in \citep{Riley:2023:ApJ}.
-Given $N_{\mathrm{obs}}$ observations from data  $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$, we define the likelihood $\mathcal{L}$ that we will see data $\mathcal{D}$ for a particular set of parameters $\lambda$ as
+Given $\Nobs$ observations from a population, with each of the $D_i$ observations described by redshift $z_i$ and chirp-mass $\Mc_i$, making a data collection $\mathcal{D} \equiv \{D_1, D_2, ... D_{N_{\mathrm{obs}}}\}$, we define the likelihood $\mathcal{L}$ to observe data $\mathcal{D}$ for a particular set of parameters $\lambda$ as
 \begin{equation}
   \log{\Lmain} = \log{\Lp\left(N_{\mathrm{obs}}|\lambda\right)} +
   \sum_{i=1}^{N_\mathrm{obs}} \log{\Le(D_i|\lambda)}\ .
   \label{eq:methods_likelihood}
 \end{equation}
 
-\bigskip
 The first term of Equation~\ref{eq:methods_likelihood} is a Poisson likelihood on there being $N_\mathrm{obs}$ detections,
 
 \begin{equation}
-  %\notag
-  \log{ \Lp\left(N_{\mathrm{obs}}|\lambda\right)} = - \mu(\lambda) + N_{\mathrm{obs}}\log\mu(\lambda) ,
+  \log{ \Lp\left(N_{\mathrm{obs}}|\lambda\right)} =  N_{\mathrm{obs}}\log\mu(\lambda)- \mu(\lambda)\, ,
   \label{eq:methods_likelihood_term1}
 \end{equation}
 
-\bigskip\noindent
 where $\mu(\lambda)$ is the expected number of observations and we omit terms that depend on the data only and therefore disappear on normalisation, such as $\log(N_{\mathrm{obs}}!)$ and permutation coefficients.
 
 The second term of Equation~\ref{eq:methods_likelihood} is comprised of a product of the probabilities of individual event detections,
 
 \begin{equation}
-  %\notag
   \Le(D_i|\lambda) = \pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda),
   \label{eq:methods_likelihood_term2}
 \end{equation}
 
 \bigskip\noindent
-where $\pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda)$ is the entry in the probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ in the $z$ and $\mathcal{M}$ bin of the observed $i^{th}$ event.
+where $\pg(z=z_i,\mathcal{M}=\mathcal{M}_{i}|\lambda)$ is the entry in the probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ in the $z$ and $\mathcal{M}$ bin of the observed $i^{th}$ event (for e.g., one pixel from the Figure~\ref{fig:mcz_grid}c).
 
 The probability distribution matrix $\pg(z,\mathcal{M}|\lambda)$ is constructed by dividing the entries in the matrix of expected detections for a given $\lambda$, generated by multiplying the surrogate model detection rate matrix by the run duration, by the sum of the entries in the matrix, $\mu$.
 
@@ -372,6 +216,7 @@ where the subscript $k$ refers to the $k^{th}$ posterior sample among $K$ availa
     w_{i,b} = \frac{1}{K} \sum^K_{k=1} \frac{I(\{z^k_i,\Mc^k_i\} \in b)}{\pi(z_i^k,\Mc_i^k)} \ ,
 \end{equation}
 where $I(\{z^k_i,\Mc^k_i\} \in b$ is an indicator function that evaluates to 1 if sample $\{z^k_i,\Mc^k_i\}$ falls into bin $b$ and $0$ otherwise.
+\avi{Normalise these weights}
 Then the probability $\Le(D_i|\lambda)$ can be evaluated as a sum over bins,
 
 \begin{equation}
@@ -381,6 +226,10 @@ Then the probability $\Le(D_i|\lambda)$ can be evaluated as a sum over bins,
 
 Unfortunatly, \Lmain is an expensive function, making it hard to sample with. 
 In the next section, we discuss a surrogate model for \Lmain that is cheaper to sample with.
+
+\avi{talk about selection effects}
+
+
 
 \subsection{GP surrogate using Bayesian optimisation }
 Given  $M$ ``observations" of \Lmain, $\{\mathcal{L}(\lambda_0), ..., \mathcal{L}(\lambda_M)\}$, we  define a conditional probabilty distribution
@@ -393,21 +242,7 @@ A Gaussian process, provides a Bayesian posterior probability
 distribution that describes potential values for $\Lmain$ at a candidate point $\lambda$. 
 Each time we observe a new $\mathcal{L}(\lambda')$, this posterior distribution is updated.
 
-\begin{algorithm}
-\caption{Basic pseudo-code for Bayesian optimization}
-\label{alg:BayesOpt}
-\begin{algorithmic}[1] % [1] turns on line numbering
-    \STATE Place Gaussian process $\mathcal{GP}$ prior on $\Lmain$
-    \STATE Observe $\Lmain$ at $N_0$ points randomly sampled.
-    \WHILE{$n \le N$}
-        \STATE Update the posterior probability distribution on $\Lmain$ using all available data
-        \STATE Let $\lambda_{\rm best}$ be a maximizer of the acquisition function over $\lambda$, where the acquisition function is computed using the current posterior distribution.
-        \STATE Observe $L_{\rm best} = \mathcal{L}(\mathcal{D}|\lambda_{\rm best})$.
-        \STATE Increment $n$
-    \ENDWHILE
-    \STATE Return a solution: $\Lsurr \sim \mathcal{GP}(\lambda)$
-\end{algorithmic}
-\end{algorithm}
+\input{algo}
 
 
 The acquisition function measures the value that would be generated by
@@ -415,52 +250,7 @@ evaluation of the objective function at a new point $\lambda'$, based on the cur
 
 Bayesian optimisation modeling using Gaussian processes is discussed in detail in~\cite{}.
 
-\tikzstyle{startstop} = [rectangle, rounded corners, 
-minimum width=3cm, 
-minimum height=1cm,
-text centered, 
-draw=black, 
-fill=red!30]
-
-
-\tikzstyle{process} = [rectangle, 
-minimum width=3cm, 
-minimum height=1cm, 
-text centered, 
-text width=3cm, 
-draw=black, 
-fill=orange!30]
-
-\tikzstyle{decision} = [diamond, 
-minimum width=3cm, 
-minimum height=1cm, 
-text centered, 
-draw=black, 
-fill=green!30]
-\tikzstyle{arrow} = [thick,->,>=stealth]
-
-\begin{tikzpicture}[node distance=2cm]
-
-\node (start) [startstop] {Sample $\pi(\lambda)$};
-\node (compute) [process, below of=start] {Compute $\Lmain$};
-\node (train) [process, below of=compute] {Train \Lsurr};
-\node (sample) [process, below of=train] {Sample 
-$p(\lambda|\mathcal{D})\sim\Lsurr\pi(\lambda)$};
-\node (check) [decision, below of=sample, yshift=-0.5cm] {$\mathcal{O}(\lambda) > N?$};
-
-\node (stop) [startstop, below of=check] {Stop};
-\node (acquire) [process, right of=check, xshift=2cm] {Acquire $\lambda$};
-
-
-\draw [arrow] (start) -- (compute);
-\draw [arrow] (compute) -- (train);
-\draw [arrow] (train) -- (sample);
-\draw [arrow] (sample) -- (check);
-\draw [arrow] (check) -- node[anchor=east] {no} (acquire);
-\draw [arrow] (check) -- node[anchor=south] {yes} (stop);
-\draw [arrow] (acquire) |- (compute);
-
-\end{tikzpicture}
+\input{flowchart}
 
 \subsection{Acquisition Functions}
 
@@ -493,7 +283,7 @@ $$
 \alpha_{\rm{EI}}^i(\mu^i, \sigma^i)= \sigma^i\ (u^i \mathcal{N}_{\rm CDF}(u^i) \mathcal{N}_{\rm PDF}(u^i)\ ,
 $$
 
-where $u^i = \frac{\mu^i - \mu_{\rm{best}}}{\sigma^i}$ and $\mu_{\rm{best}}$ is the best value of $\mu$ so far.
+where $u^i = {(\mu^i - \mu{\rm{best})}}/{\sigma^i}$ and $\mu_{\rm{best}}$ is the best value of $\mu$ so far.
 
 where $\mathcal{N}_{\rm PDF}$ denotes the Probability Density function (PDF) of the univariate Gaussian probability distribution.
 
@@ -531,7 +321,7 @@ This will indicate that the surrogate likelihood distribution has been adequatel
 
 %--------------------------------------------------------
 \section{Inference with surrogate model}
-
+\label{sec:results}
 \subsection{Simulation study}
 
 To validate our method, we conduct the the study described in Section 2.5 of \citep{Riley:2023:ApJ}.
@@ -651,6 +441,7 @@ pass
 
 %--------------------------------------------------------
 \section{Discussion}
+\label{sec:discussion}
 
 Future work
 \begin{itemize}
@@ -666,8 +457,6 @@ The data underlying this article is available in the Zenodo deposit for this wor
 
 \section*{Acknowledgements}
 We gratefully acknowledge the Swinburne Supercomputing OzSTAR Facility for computational resources. All analyses (including test and failed analyses) performed for this study used $XX$K core hours on OzSTAR. This would have amounted to a carbon footprint of ${\sim XX{\text{t CO}_2}}$~\citep{greenhouse, energy_to_co2_converter}. Thankfully, as OzSTAR is powered by wind energy from Iberdrola Australia; the electricity for computations produces negligible carbon waste.
-A.V. is supported by the Australian Research Council (ARC) Centre of Excellence CE170100004.
-
 4-OGC.
 IM is a recipient of the Australian Research Council Future Fellowship FT190100574.
 AV is XX.
@@ -809,6 +598,44 @@ Binary population synthesis code                                      & COMPAS &
 \section{Sampler settings}\label{sec:appendix_sampler_settubgs}
 Here we describe the sampler settings we use. 
 We also plot some trace plots.
+
+
+\section{Posteriors}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}{0.45\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figures/5M_50_940pts.pdf}
+%         \caption{First image}
+%         \label{fig:image1}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}{0.45\textwidth}
+%         \centering
+%         \includegraphics[width=\textwidth]{figures/32M_50_780pts.pdf}
+%         \caption{Second image}
+%         \label{fig:image2}
+%     \end{subfigure}
+%     \caption{Posteriors for MSSFR parameters using LVK data}
+%     \label{fig:two_images}
+% \end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \begin{minipage}{0.45\columnwidth}
+        \includegraphics[width=\linewidth]{figures/5M_50_940pts.pdf}
+        \caption{Caption for subfigure (a)}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\columnwidth}
+        \includegraphics[width=\linewidth]{figures/32M_50_780pts.pdf}
+        \caption{Caption for subfigure (b)}
+    \end{minipage}
+    \caption{Main caption for the entire figure}
+    \label{fig:main}
+\end{figure}
+
 
 
 \end{document}
