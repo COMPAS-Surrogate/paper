@@ -1,0 +1,15 @@
+\begin{algorithm}
+\caption{Basic pseudo-code for Bayesian optimization}
+\label{alg:BayesOpt}
+\begin{algorithmic}[1] % [1] turns on line numbering
+    \State Place Gaussian process $\mathcal{GP}$ prior on $\Lmain$
+    \State Observe $\Lmain$ at $N_0$ points randomly sampled.
+    \While{$n \leq N$}
+        \State Update the posterior probability distribution on $\Lmain$ using all available data
+        \State Let $\lambda_{\text{best}}$ be a maximizer of the acquisition function over $\lambda$, where the acquisition function is computed using the current posterior distribution.
+        \State Observe $L_{\text{best}} = \mathcal{L}(\mathcal{D}|\lambda_{\text{best}})$.
+        \State Increment $n$
+    \EndWhile
+    \State Return a solution: $\Lsurr \sim \mathcal{GP}(\lambda)$
+\end{algorithmic}
+\end{algorithm}

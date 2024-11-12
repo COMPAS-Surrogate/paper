@@ -1,0 +1,23 @@
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance=0.7cm and 1.5cm]
+        \node (start) [startstop] {Sample $\pi(\lambda)$};
+        \node (compute) [process, below=of start] {Compute $\Lmain$};
+        \node (train) [process, below=of compute] {Train $\Lsurr$};
+        \node (sample) [process, below=of train] {Sample\\$p(\lambda|\mathcal{D})\sim\Lsurr\pi(\lambda)$};
+        \node (check) [decision, below=of sample] {$\mathcal{O}(\lambda) > N?$};
+        \node (stop) [startstop, below=of check] {Stop};
+        \node (acquire) [process, right=of check] {Acquire $\lambda$};
+
+        \draw [arrow] (start) -- (compute);
+        \draw [arrow] (compute) -- (train);
+        \draw [arrow] (train) -- (sample);
+        \draw [arrow] (sample) -- (check);
+        \draw [arrow] (check) -- node[above] {no} (acquire);
+        \draw [arrow] (check) -- node[left] {yes} (stop);
+        \draw [arrow] (acquire) -| (compute);
+    \end{tikzpicture}
+    \caption{Flowchart of the process}
+    \label{fig:flowchart}
+\end{figure}

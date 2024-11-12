@@ -1,0 +1,144 @@
+%%%%%%%%%%%%%%%%%%%%%%% COMMENTS
+
+\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
+\newcommand{\jeff}[1]{\textbf{\textcolor{orange-red}{#1}}}
+\newcommand{\ilya}[1]{\textbf{\textcolor{magenta}{#1}}}
+\newcommand{\avi}[1]{\textbf{\textcolor{cyan}{#1}}}
+\newcommand{\chayan}[1]{\textbf{\textcolor{green}{#1}}}
+\newcommand{\resp}[1]{#1}
+
+
+%%%%%%%%%%%%%%%  ACRONYMS
+\acrodef{ANN}{artificial neural network}
+\acrodef{DCO}{double compact object}
+\acrodef{MCMC}{Markov Chain Monte Carlo}
+\acrodef{MSSFR}{metallicity-specific star formation rate}
+\acrodef{LVK}{LIGO--VIRGO--KAGRA}
+\acrodef{GP}{gaussian process}
+
+
+
+%%%%%%%%%%%%%%% CODE + PROJECTS
+\newcommand{\project}[1]{\textsf{#1}}
+\newcommand{\code}[1]{{\sc{#1}}\xspace}
+
+\newcommand{\python}{\project{Python}}
+\newcommand{\jupyter}{\project{Jupyter}}
+\newcommand{\exoplanet}{\project{exoplanet}}
+\newcommand{\lightkurve}{\project{lightkurve}}
+\newcommand{\starry}{\project{starry}}
+\newcommand{\pymc}{\project{PyMC3}}
+\newcommand{\pymcextra}{\project{pymc3-ext}}
+\newcommand{\celerite}{\project{celerite}}
+\newcommand{\astropy}{\project{astropy}}
+\newcommand{\scipy}{\project{scipy}}
+\newcommand{\jupytext}{\project{jupytext}}
+\newcommand{\sphinx}{\project{sphinx}}
+\newcommand{\jupyterbook}{\project{Jupyter-book}}
+\newcommand{\arviz}{\project{ArviZ}}
+\newcommand{\nbconvert}{\project{nbconvert}}
+\newcommand{\numpy}{\project{numpy}}
+\newcommand{\pandas}{\project{pandas}}
+\newcommand{\matplotlib}{\project{matplotlib}}
+\newcommand{\corner}{\project{corner}}
+\newcommand{\emcee}{\project{emcee}}
+\newcommand{\trieste}{\project{trieste}}
+\newcommand{\tensorflow}{\project{TensorFlow}}
+\newcommand{\pycbc}{\project{PyCBC}}
+\newcommand{\LVK}{\project{LVK}}
+\newcommand{\ogc}{\project{4-OGC}}
+
+
+\newcommand{\COMPAS}{\code{COMPAS}}
+\newcommand{\STARTRACK}{\code{StarTrack}}
+\newcommand{\BPASS}{\code{BPASS}}
+\newcommand{\COSMIC}{\code{COSMIC}}
+\newcommand{\POSYDEN}{\code{POSYDEN}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% MATH 
+\newcommand{\T}{\ensuremath{\mathrm{T}}}
+\newcommand{\dd}{\ensuremath{ \mathrm{d}}}
+% \newcommand{\unit}[1]{{\ensuremath{ \mathrm{#1}}}}
+\newcommand{\bvec}[1]{{\ensuremath{\boldsymbol{#1}}}}
+\DeclareMathOperator{\invG}{Inv-\mathnormal{\Gamma}}
+\DeclareMathOperator{\N}{\mathcal{N}}
+\DeclareMathOperator{\U}{\mathcal{U}}
+\DeclareMathOperator{\Un}{\mathcal{U}}
+\DeclareMathOperator{\Par}{\mathcal{P}ar}
+\DeclareMathOperator{\tmin}{\mathnormal{t_{\rm min}}}
+\DeclareMathOperator{\tmax}{\mathnormal{t_{\rm max}}}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\MSFR}{\ensuremath{{M}_{\rm{SFR}}}\xspace}
+\newcommand{\ts}{\ensuremath{{t}_{\rm{s}}}\xspace}
+\newcommand{\tsup}{\textsuperscript}
+\newcommand{\Vc}{\ensuremath{{V}_{\rm{c}}}\xspace}
+
+\newcommand{\monei}{\ensuremath{m_{1,\rm{i}}}\xspace}
+\newcommand{\mtwoi}{\ensuremath{m_{2,\rm{i}}}\xspace}
+\newcommand{\monef}{\ensuremath{m_{1,\rm{f}}}\xspace}
+\newcommand{\mtwof}{\ensuremath{m_{2,\rm{f}}}\xspace}
+\newcommand{\ai}{\ensuremath{a_{\rm{i}}}\xspace}
+\newcommand{\qi}{\ensuremath{q_{\rm{i}}}\xspace}
+\newcommand{\Zi}{\ensuremath{Z_{\rm{i}}}\xspace}
+\newcommand{\vk}{\ensuremath{v_{\rm{k}}}\xspace}
+\newcommand{\thetak}{\ensuremath{{\theta}_{\rm{k}}}\xspace}
+\newcommand{\phik}{\ensuremath{{\phi}_{\rm{k}}}\xspace}
+\newcommand{\ei}{\ensuremath{{e}_{\rm{i}}}\xspace}
+
+\newcommand{\Msun}{\ensuremath{\,\rm{M}_{\odot}}\xspace}
+\newcommand{\Zsun}{\ensuremath{\,\rm{Z}_{\odot}}\xspace}
+\newcommand{\kms}{\ensuremath{\,\rm{km}\,\rm{s}^{-1}}\xspace}
+\newcommand{\AU}{\ensuremath{\,\mathrm{AU}}\xspace}
+\newcommand{\Mc}{\ensuremath{\mathcal{M}}\xspace}
+\newcommand{\MSSFR}{\ensuremath{\mathcal{S}(Z,z)}\xspace}
+\newcommand{\SFR}{\ensuremath{\rm{SFR}(z)}\xspace}
+\newcommand{\SFR}{\ensuremath{\rm{SFR}(z)}\xspace}
+
+
+\newcommand{\Lmain}{\ensuremath{\mathcal{L}(\mathcal{D}|\lambda)}\xspace}
+\newcommand{\Lp}{\ensuremath{\mathcal{L}_{\rm p}}\xspace}
+\newcommand{\Le}{\ensuremath{\mathcal{L}_{\rm event}}\xspace}
+\newcommand{\pg}{\ensuremath{p_{\rm grid}}\xspace}
+\newcommand{\Lsurr}{\ensuremath{\mathcal{L}^{\star}(\lambda)}\xspace}
+
+
+\newcommand{\Nobs}{\ensuremath{N_{\mathrm{obs}}}\xspace}
+\newcommand{\Tobs}{\ensuremath{T_{\mathrm{obs}}}\xspace}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%% RANDOM FORMATTING
+
+\makeatletter
+\let\newfloat\newfloat@ltx
+\makeatother
+
+\usetikzlibrary{shapes.geometric, arrows, positioning}
+\tikzset{
+    startstop/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm,
+        text centered, draw=black, fill=blue!10, font=\sffamily\bfseries},
+    process/.style={rectangle, minimum width=3cm, minimum height=1cm, text centered,
+        text width=3cm, draw=black, fill=gray!10, font=\sffamily},
+    decision/.style={diamond, aspect=2, minimum width=3cm, minimum height=1cm,
+        text centered, draw=black, fill=green!10, font=\sffamily},
+    arrow/.style={thick, ->, >=stealth},
+    every node/.style={align=center}
+}
+
+\setlength{\marginparwidth}{1.5cm}
+
+
+
+% table column types
+\usepackage{array}
+\newcolumntype{E}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{F}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{G}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
